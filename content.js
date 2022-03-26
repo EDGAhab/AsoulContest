@@ -1,4 +1,4 @@
-function onload() {
+function onload(pet_id) {
     const pet = document.createElement('div');
     const position = {
         x: 0,
