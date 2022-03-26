@@ -1,0 +1,13 @@
+*{
+    margin:0;
+    padding:0;
+}
+#block { 
+    border-width: 2px; 
+    border-color: #4682B4; 
+    background-color: #E0FFFF; 
+    width: 200px; 
+    text-align: center; 
+    line-height:30px;
+    padding:3px 0;
+}
