@@ -1,5 +1,4 @@
-window.addEventListener('load', (event) => {
-    console.log('page is fully loaded');
+function onload() {
     const pet = document.createElement('div');
     const position = {
         x: 0,
@@ -7,6 +6,7 @@ window.addEventListener('load', (event) => {
       };
     pet.style.left = (position.x = 100) + 'px';
     pet.style.top = (position.y = 100) + 'px';
-    pet.classList.add('asoul-pet');
+    pet.classList.add('carol-pet');
     document.body.appendChild(pet);
-  });
+}
+window.addEventListener('load', onload);

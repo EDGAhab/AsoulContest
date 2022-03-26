@@ -32,7 +32,7 @@
 
     "web_accessible_resources": [
         {
-          "resources": ["images/DianaPet128.png"],
+          "resources": ["images/AvaPet128.png", "images/BellaPet128.png", "images/CarolPet128.png", "images/DianaPet128.png", "images/EileenPet128.png"],
           "matches": ["<all_urls>"]
         }
       ]
