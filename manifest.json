@@ -18,6 +18,22 @@
             "48": "/images/icon48.png",
             "128": "/images/icon128.png"
         }
-      }
+      },
+    
+    "content_scripts":[
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js"],
+            "css": ["content.css"],
+            "run_at": "document_start",
+            "all_frames": true
+          }
+    ],
 
+    "web_accessible_resources": [
+        {
+          "resources": ["images/DianaPet128.png"],
+          "matches": ["<all_urls>"]
+        }
+      ]
   }

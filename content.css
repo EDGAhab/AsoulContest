@@ -1,0 +1,9 @@
+.asoul-pet {
+    height: 128px;
+    width: 128px;
+    position: fixed;
+    z-index: 1000;
+    background-image: url('chrome-extension://moemgipoknejnhkdeocckfejlaincdhp/images/DianaPet128.png');
+    background-size: 128px 128px;
+    background-position: 0 0;
+  }
