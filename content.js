@@ -18,8 +18,39 @@ function onload(pet_id) {
   } else {
       pet.classList.add('eileen-pet');
   }
-
   document.body.appendChild(pet);
+
+  var active = false;
+
+  pet.onmousedown = function(event) {
+    if (active == true) {
+      return;
+    }
+    active = true
+    function moveAt(pageX, pageY) {
+      pet.style.left = pageX - pet.offsetWidth / 2 + 'px';
+      pet.style.top = pageY - pet.offsetHeight / 2 + 'px';
+    }
+  
+    // move our absolutely positioned ball under the pointer
+    moveAt(event.pageX, event.pageY);
+  
+    function onMouseMove(event) {
+      moveAt(event.pageX, event.pageY);
+    }
+  
+    // (2) move the ball on mousemove
+    document.addEventListener('mousemove', onMouseMove);
+  
+    // (3) drop the ball, remove unneeded handlers
+    pet.onmouseup = function() {
+      document.removeEventListener('mousemove', onMouseMove);
+      //pet.onmouseup = null;
+      active = false
+    };
+  
+  };
+  
 }
 
 window.addEventListener('load', () => {

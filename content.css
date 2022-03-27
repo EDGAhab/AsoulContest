@@ -6,6 +6,7 @@
     background-image: url('chrome-extension://__MSG_@@extension_id__/images/AvaPet128.png');
     background-size: 128px 128px;
     background-position: 0 0;
+    cursor: -webkit-grab;
   }
 
 .bella-pet {
@@ -16,6 +17,7 @@
     background-image: url('chrome-extension://__MSG_@@extension_id__/images/BellaPet128.png');
     background-size: 128px 128px;
     background-position: 0 0;
+    cursor: -webkit-grab;
   }
 
 .carol-pet {
@@ -26,6 +28,7 @@
     background-image: url('chrome-extension://__MSG_@@extension_id__/images/CarolPet128.png');
     background-size: 128px 128px;
     background-position: 0 0;
+    cursor: -webkit-grab;
   }
 
 .diana-pet {
@@ -36,6 +39,7 @@
     background-image: url('chrome-extension://__MSG_@@extension_id__/images/DianaPet128.png');
     background-size: 128px 128px;
     background-position: 0 0;
+    cursor: -webkit-grab;
   }
 
 .eileen-pet {
@@ -46,4 +50,5 @@
     background-image: url('chrome-extension://__MSG_@@extension_id__/images/EileenPet128.png');
     background-size: 128px 128px;
     background-position: 0 0;
+    cursor: -webkit-grab;
   }
