@@ -4,12 +4,19 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <div id="block">
-        <h3>Bella</h3>
-        
-        <p>
-        <img height="100" style="max-width: 120px;background-position: top left;" src="/images/BellaPet128.png" />
-        </p>
-        </div>
+
+    <section class="diary" id = "block">
+      <form id="my-form">
+          <input class="btn" type="submit" id="pet-change" value="Change Pet" onClick="onChange('Ava')">      
+          <div class="msg">
+            <h3 id="pet-name">Ava</h3>
+            <p>
+            <img height="100" style="max-width: 120px;background-position: top left;" src="/images/AvaPet128.png" />
+            </p>
+          </div>
+      </form>
+    </section>
+
+    <script src="./popup.js"></script>
   </body>
 </html>
