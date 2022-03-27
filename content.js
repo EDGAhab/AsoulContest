@@ -5,7 +5,7 @@ function onload(pet_id) {
       y: 0,
     };
   pet.style.left = (position.x = 100) + 'px';
-  pet.style.top = (position.y = 100) + 'px';
+  pet.style.top = (position.y = 600) + 'px';
 
   if (pet_id == 1) {
       pet.classList.add('ava-pet');
