@@ -22,6 +22,7 @@ function onload(pet_id) {
 
   var active = false;
 
+  //拖动人物
   pet.onmousedown = function(event) {
     if (active == true) {
       return;
@@ -32,17 +33,17 @@ function onload(pet_id) {
       pet.style.top = pageY - pet.offsetHeight / 2 + 'px';
     }
   
-    // move our absolutely positioned ball under the pointer
+    // move our absolutely positioned pet under the pointer
     moveAt(event.pageX, event.pageY);
   
     function onMouseMove(event) {
       moveAt(event.pageX, event.pageY);
     }
   
-    // (2) move the ball on mousemove
+    // (2) move the pet on mousemove
     document.addEventListener('mousemove', onMouseMove);
   
-    // (3) drop the ball, remove unneeded handlers
+    // (3) drop the pet, remove unneeded handlers
     pet.onmouseup = function() {
       document.removeEventListener('mousemove', onMouseMove);
       //pet.onmouseup = null;
