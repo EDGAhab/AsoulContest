@@ -1,13 +1,34 @@
-*{
-    margin:0;
-    padding:0;
+* {
+  margin: 0;
+  padding: 0;
 }
-#block { 
-    border-width: 2px; 
-    border-color: #4682B4; 
-    background-color: #E0FFFF; 
-    width: 200px; 
-    text-align: center; 
-    line-height:30px;
-    padding:3px 0;
+#block {
+  border-width: 2px;
+  border-color: #4682b4;
+  background-color: #e0ffff;
+  width: 200px;
+  text-align: center;
+  line-height: 30px;
+  padding: 3px 0;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 10px 15px;
+  border: 0;
+  background: rgb(7, 101, 241);
+  color: #fff;
+  border-radius: 5px;
+  margin: 5px 0;
+  text-align: center;
+  text-decoration: none;
+}
+
+.btn:hover,
+btn:visited,
+btn:link,
+btn:active {
+  background: #444;
+  text-decoration: none;
 }
