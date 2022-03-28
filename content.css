@@ -42,7 +42,7 @@
     cursor: -webkit-grab;
   }
 
-@keyframes diana-pet-jump {
+@keyframes jump {
   0% {
     transform: translateY(0);
   }
@@ -56,7 +56,7 @@
   background-repeat: repeat-y;
   background-size: 128px 128px;
   background-position: 0 0;
-  animation: diana-pet-jump 0.3s steps(3);
+  animation: jump 0.3s steps(3);
 }
 
 .diana-pet.drag {
@@ -81,21 +81,12 @@
     cursor: -webkit-grab;
   }
 
-@keyframes eileen-pet-jump {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-30px);
-  }
-}
-
 .eileen-pet.jump {
   background-image: url('chrome-extension://__MSG_@@extension_id__/images/EileenJump.png');
   background-repeat: repeat-y;
   background-size: 128px 128px;
   background-position: 0 0;
-  animation: eileen-pet-jump 0.3s steps(3);
+  animation: jump 0.3s steps(3);
 }
 
 .eileen-pet.drag {
