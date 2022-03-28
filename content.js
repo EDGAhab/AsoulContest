@@ -4,7 +4,7 @@ function onload(pet_id) {
       x: 0,
       y: 0,
     };
-  pet.style.left = (position.x = 100) + 'px';
+  pet.style.left = (position.x = 30) + 'px';
   pet.style.top = (position.y = 600) + 'px';
 
   if (pet_id == 1) {
@@ -19,7 +19,26 @@ function onload(pet_id) {
       pet.classList.add('eileen-pet');
   }
   document.body.appendChild(pet);
+  scheduleSomething()
 
+  var animating = false;
+
+  async function scheduleSomething() {
+    setTimeout(function(){
+      
+      const choices = 10;
+      const random = ~~(Math.random() * choices);
+      if (animating == false) {
+        doSomething(random);
+      }
+      scheduleSomething();
+    }, 1000 + Math.random()*10000);
+  }
+
+
+  function doSomething(random) {
+    animateWink()
+  }
 
   document.addEventListener('keydown', logKey);
   function logKey(e) {
@@ -30,11 +49,21 @@ function onload(pet_id) {
 
 
   async function animateJump() {
+    animating = true;
     pet.classList.add('jump');
-    jumpped = true;
     //offsetPosition(0, -30);
     await new Promise(r => setTimeout(r, 200));
     pet.classList.remove('jump');
+    animating = false;
+  }
+
+  async function animateWink() {
+    animating = true;
+    pet.classList.add('wink');
+    //offsetPosition(0, -30);
+    await new Promise(r => setTimeout(r, 100));
+    pet.classList.remove('wink');
+    animating = false;
   }
 
 
@@ -47,15 +76,17 @@ function onload(pet_id) {
   }
 
 
-
+  //var animating = false;
   var active = false;
 
   //拖动人物
   pet.onmousedown = function(event) {
     if (active == true) {
+      animating = false;
       return;
     }
-    active = true
+    active = true;
+    animating = true;
     pet.classList.add('drag');
     function moveAt(pageX, pageY) {
       pet.style.left = pageX - pet.offsetWidth / 2 + 'px';
@@ -77,7 +108,8 @@ function onload(pet_id) {
       pet.classList.remove('drag');
       document.removeEventListener('mousemove', onMouseMove);
       //pet.onmouseup = null;
-      active = false
+      active = false;
+      animating = false;
     };
   
   };
