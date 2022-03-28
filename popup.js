@@ -16,23 +16,10 @@ changeButton5.addEventListener('click', onChange5);
 function onChange1(e) {
     e.preventDefault();
     
-    petName = "Ava"
-    console.log(newPetName);
-    let image = "/images/" + petName + "Pet128.png";
-    var newContent = `<h3 id="pet-name"> ${petName} </h3>` +
-                    `<p>`+
-                    `<img height="100" style="max-width: 120px;background-position: top left;" src=${image} />`+
-                    `</p>`;
-    msg.innerHTML = newContent;
-}
-
-
-function onChange1(e) {
-    e.preventDefault();
-    
     petName = "Ava";
+    chineseName = "向晚";
     let image = "/images/" + petName + "Pet128.png";
-    var newContent = `<h3 id="pet-name"> ${petName} </h3>` +
+    var newContent = `<h3 id="pet-name"> ${chineseName} </h3>` +
                     `<p>`+
                     `<img height="100" style="max-width: 120px;background-position: top left;" src=${image} />`+
                     `</p>`;
@@ -44,8 +31,9 @@ function onChange2(e) {
     e.preventDefault();
     
     petName = "Bella";
+    chineseName = "贝拉";
     let image = "/images/" + petName + "Pet128.png";
-    var newContent = `<h3 id="pet-name"> ${petName} </h3>` +
+    var newContent = `<h3 id="pet-name"> ${chineseName} </h3>` +
                     `<p>`+
                     `<img height="100" style="max-width: 120px;background-position: top left;" src=${image} />`+
                     `</p>`;
@@ -57,8 +45,9 @@ function onChange3(e) {
     e.preventDefault();
     
     petName = "Carol";
+    chineseName = "珈乐";
     let image = "/images/" + petName + "Pet128.png";
-    var newContent = `<h3 id="pet-name"> ${petName} </h3>` +
+    var newContent = `<h3 id="pet-name"> ${chineseName} </h3>` +
                     `<p>`+
                     `<img height="100" style="max-width: 120px;background-position: top left;" src=${image} />`+
                     `</p>`;
@@ -70,8 +59,9 @@ function onChange4(e) {
     e.preventDefault();
     
     petName = "Diana";
+    chineseName = "嘉然";
     let image = "/images/" + petName + "Pet128.png";
-    var newContent = `<h3 id="pet-name"> ${petName} </h3>` +
+    var newContent = `<h3 id="pet-name"> ${chineseName} </h3>` +
                     `<p>`+
                     `<img height="100" style="max-width: 120px;background-position: top left;" src=${image} />`+
                     `</p>`;
@@ -82,9 +72,10 @@ function onChange4(e) {
 function onChange5(e) {
     e.preventDefault();
     
-    petName = "Eileen"
+    petName = "Eileen";
+    chineseName = "乃琳";
     let image = "/images/" + petName + "Pet128.png";
-    var newContent = `<h3 id="pet-name"> ${petName} </h3>` +
+    var newContent = `<h3 id="pet-name"> ${chineseName} </h3>` +
                     `<p>`+
                     `<img height="100" style="max-width: 120px;background-position: top left;" src=${image} />`+
                     `</p>`;
