@@ -85,5 +85,5 @@ function onload(pet_id) {
 }
 
 window.addEventListener('load', () => {
-  onload(4);
+  onload(5);
 });

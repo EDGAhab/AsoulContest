@@ -80,3 +80,31 @@
     background-position: 0 0;
     cursor: -webkit-grab;
   }
+
+@keyframes eileen-pet-jump {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-30px);
+  }
+}
+
+.eileen-pet.jump {
+  background-image: url('chrome-extension://__MSG_@@extension_id__/images/EileenJump.png');
+  background-repeat: repeat-y;
+  background-size: 128px 128px;
+  background-position: 0 0;
+  animation: eileen-pet-jump 0.3s steps(3);
+}
+
+.eileen-pet.drag {
+  height: 128px;
+  width: 128px;
+  position: fixed;
+  z-index: 1000;
+  background-image: url('chrome-extension://__MSG_@@extension_id__/images/EileenDrag.png');
+  background-size: 128px 128px;
+  background-position: 0 0;
+  cursor: -webkit-grab;
+}

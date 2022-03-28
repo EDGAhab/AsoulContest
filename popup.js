@@ -6,6 +6,8 @@ var changeButton3 = document.getElementById("pet-change3");
 var changeButton4 = document.getElementById("pet-change4");
 var changeButton5 = document.getElementById("pet-change5");
 
+
+
 changeButton1.addEventListener('click', onChange1);
 changeButton2.addEventListener('click', onChange2);
 changeButton3.addEventListener('click', onChange3);
@@ -13,9 +15,11 @@ changeButton4.addEventListener('click', onChange4);
 changeButton5.addEventListener('click', onChange5);
 
 
+
+
+
 function onChange1(e) {
     e.preventDefault();
-    
     petName = "Ava";
     chineseName = "向晚";
     let image = "/images/" + petName + "Pet128.png";
@@ -29,7 +33,6 @@ function onChange1(e) {
 
 function onChange2(e) {
     e.preventDefault();
-    
     petName = "Bella";
     chineseName = "贝拉";
     let image = "/images/" + petName + "Pet128.png";
@@ -43,7 +46,6 @@ function onChange2(e) {
 
 function onChange3(e) {
     e.preventDefault();
-    
     petName = "Carol";
     chineseName = "珈乐";
     let image = "/images/" + petName + "Pet128.png";
@@ -57,7 +59,6 @@ function onChange3(e) {
 
 function onChange4(e) {
     e.preventDefault();
-    
     petName = "Diana";
     chineseName = "嘉然";
     let image = "/images/" + petName + "Pet128.png";
@@ -71,7 +72,6 @@ function onChange4(e) {
 
 function onChange5(e) {
     e.preventDefault();
-    
     petName = "Eileen";
     chineseName = "乃琳";
     let image = "/images/" + petName + "Pet128.png";
@@ -81,6 +81,5 @@ function onChange5(e) {
                     `</p>`;
     msg.innerHTML = newContent;
 }
-
 
 
