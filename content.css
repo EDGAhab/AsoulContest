@@ -42,6 +42,34 @@
     cursor: -webkit-grab;
   }
 
+@keyframes diana-pet-jump {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-30px);
+  }
+}
+
+.diana-pet.jump {
+  background-image: url('chrome-extension://__MSG_@@extension_id__/images/DianaJump.png');
+  background-repeat: repeat-y;
+  background-size: 128px 128px;
+  background-position: 0 0;
+  animation: diana-pet-jump 0.3s steps(3);
+}
+
+.diana-pet.drag {
+  height: 128px;
+  width: 128px;
+  position: fixed;
+  z-index: 1000;
+  background-image: url('chrome-extension://__MSG_@@extension_id__/images/DianaDrag.png');
+  background-size: 128px 128px;
+  background-position: 0 0;
+  cursor: -webkit-grab;
+}
+
 .eileen-pet {
     height: 128px;
     width: 128px;
