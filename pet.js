@@ -1,10 +1,12 @@
-document.createElement('body');
+// document.createElement('body');
 
-$(document).ready(function () { 
+$(document).ready(function () {
     // error: $ is not defined. Pls ignore it cause this code can work.
     var pet = $("<div class='pet'></div>");
     $("body").parent().append(pet);
-    $(".pet").prepend("<img id='pet-img' src='./images/DianaStandL.png'/>");
+    petImgURL = chrome.runtime.getURL("images/DianaStandL.png");
+    $('.pet').prepend($('<img>', { src: petImgURL }));
+    // chrome.runtime.getURL(
     $(".pet").css({
         "left": "100px",
         "bottom": "100px",

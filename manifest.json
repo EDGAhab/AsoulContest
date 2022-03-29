@@ -1,39 +1,43 @@
 {
-    "name": "AsoulHelper",
-    "description": "web pet- Asoul help you plan!",
-    "version": "1.0",
-    "manifest_version": 3,
+  "name": "AsoulHelper",
+  "description": "web pet- Asoul help you plan!",
+  "version": "1.0",
+  "manifest_version": 3,
 
-    "icons": {
-        "16": "/images/icon16.png",
-        "48": "/images/icon48.png",
-        "128": "/images/icon128.png"
-    },
+  "icons": {
+    "16": "/images/icon16.png",
+    "48": "/images/icon48.png",
+    "128": "/images/icon128.png"
+  },
 
-    "permissions": ["storage"],
-    "action": {
-        "default_popup": "popup.html",
-        "default_icons": {
-            "16": "/images/icon16.png",
-            "48": "/images/icon48.png",
-            "128": "/images/icon128.png"
-        }
-      },
-    
-    "content_scripts":[
-        {
-            "matches": ["<all_urls>"],
-            "js": ["pet.js"],
-            "css": ["content.css"],
-            "run_at": "document_start",
-            "all_frames": true
-          }
-    ],
+  "permissions": ["storage"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icons": {
+      "16": "/images/icon16.png",
+      "48": "/images/icon48.png",
+      "128": "/images/icon128.png"
+    }
+  },
 
-    "web_accessible_resources": [
-        {
-          "resources": ["images/*"],
-          "matches": ["<all_urls>"]
-        }
-      ]
-  }
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "./jquery-3.6.0.min.js",
+        "./jquery-ui-1.13.1/jquery-ui.min.js",
+        "./pet.js"
+      ],
+      "css": ["content.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+
+  "web_accessible_resources": [
+    {
+      "matches": ["<all_urls>"],
+      "resources": ["./images/*", "DianaStandL.png"]
+    }
+  ]
+}
