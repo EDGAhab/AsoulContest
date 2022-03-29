@@ -1,20 +1,15 @@
+document.createElement('body');
 
-function onload(pet_id) {
-    $(document).ready(function () {
-        var pet = $("<div class='pet'></div>");
-        $("body").append(pet);
-        $(".pet").prepend("<img id='pet-img' src='./images/DianaStandL.png'/>");
-        $(".pet").css({
-            "left": "100px",
-            "bottom": "100px",
-            "position": "absolute",
-        });
-
-        $(".pet").draggable();
+$(document).ready(function () { 
+    // error: $ is not defined. Pls ignore it cause this code can work.
+    var pet = $("<div class='pet'></div>");
+    $("body").parent().append(pet);
+    $(".pet").prepend("<img id='pet-img' src='./images/DianaStandL.png'/>");
+    $(".pet").css({
+        "left": "100px",
+        "bottom": "100px",
+        "position": "absolute",
     });
-}
 
-
-window.addEventListener('load', () => {
-    onload(5);
+    $(".pet").draggable(); // Drag pet around
 });
