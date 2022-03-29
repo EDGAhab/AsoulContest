@@ -37,7 +37,7 @@
   "web_accessible_resources": [
     {
       "matches": ["<all_urls>"],
-      "resources": ["./images/*", "DianaStandL.png"]
+      "resources": ["images/*", "DianaStandL.png"]
     }
   ]
 }

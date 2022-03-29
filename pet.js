@@ -6,7 +6,6 @@ $(document).ready(function () {
     $("body").parent().append(pet);
     petImgURL = chrome.runtime.getURL("images/DianaStandL.png");
     $('.pet').prepend($('<img>', { src: petImgURL }));
-    // chrome.runtime.getURL(
     $(".pet").css({
         "left": "100px",
         "bottom": "100px",
