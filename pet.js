@@ -5,7 +5,7 @@ $(document).ready(function () {
     var pet = $("<div class='pet'></div>");
     $("body").parent().append(pet);
     petImgURL = chrome.runtime.getURL("images/DianaStandL.png");
-    $('.pet').prepend($('<img>', { src: petImgURL }));
+    $('.pet').prepend($('<img>', { id:"pet-img", src: petImgURL }));
     $(".pet").css({
         "left": "100px",
         "bottom": "0px",
@@ -13,5 +13,17 @@ $(document).ready(function () {
         "position": "fixed",
     });
 
-    $(".pet").draggable(); // Drag pet around
+    // Drag pet around
+    $(".pet").draggable({
+        // axis: "x", // I want it only stand on the ground
+        start: function() {
+            $("#pet-img").attr("src", chrome.runtime.getURL("images/DianaDrag.png"));
+        },
+        stop: function() {
+            $("#pet-img").attr("src", chrome.runtime.getURL("images/DianaStandL.png"));
+            // $(".pet").css({ "bottom": "0px" }); // Want to rest it back to the ground
+        }
+    }); 
+
+    
 });
