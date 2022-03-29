@@ -9,6 +9,7 @@ $(document).ready(function () {
     $(".pet").css({
         "left": "100px",
         "bottom": "100px",
+        "z-index": "9999",
         "position": "absolute",
     });
 
