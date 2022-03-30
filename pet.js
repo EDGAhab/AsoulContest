@@ -1,11 +1,14 @@
-// document.createElement('body');
-
 $(document).ready(function () {
-    // error: $ is not defined. Pls ignore it cause this code can work.
     var pet = $("<div class='pet'></div>");
+    curPetName = "Diana";
+    var petImgConfig = "fuck json";
+    petImgConfigJSON_URL = chrome.runtime.getURL("pet-img-config.json");
     $("body").parent().append(pet);
-    petImgURL = chrome.runtime.getURL("images/DianaStandL.png");
-    $('.pet').prepend($('<img>', { id:"pet-img", src: petImgURL }));
+    $.getJSON(petImgConfigJSON_URL, function (data) {
+        petImgURL = chrome.runtime.getURL(data[curPetName].stand.left);
+        $('.pet').prepend($('<img>', { id: "pet-img", src: petImgURL }));
+    })
+
     $(".pet").css({
         "left": "100px",
         "bottom": "0px",
@@ -14,16 +17,23 @@ $(document).ready(function () {
     });
 
     // Drag pet around
+    // 仍需要添加判定范围，不允许超出窗口
     $(".pet").draggable({
         // axis: "x", // I want it only stand on the ground
-        start: function() {
-            $("#pet-img").attr("src", chrome.runtime.getURL("images/DianaDrag.png"));
+        start: function () {
+            $.getJSON(petImgConfigJSON_URL, function (data) {
+                petImgURL = chrome.runtime.getURL(data[curPetName].drag);
+                $("#pet-img").attr("src", petImgURL);
+            })
         },
-        stop: function() {
-            $("#pet-img").attr("src", chrome.runtime.getURL("images/DianaStandL.png"));
-            // $(".pet").css({ "bottom": "0px" }); // Want to rest it back to the ground
+        stop: function () {
+            $.getJSON(petImgConfigJSON_URL, function (data) {
+                petImgURL = chrome.runtime.getURL(data[curPetName].stand.left);
+                $("#pet-img").attr("src", petImgURL);
+            })
         }
-    }); 
+    });
 
-    
+    // pet walk around
+
 });
