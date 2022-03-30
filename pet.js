@@ -1,8 +1,9 @@
 $(document).ready(function () {
     var pet = $("<div class='pet'></div>");
-    curPetName = "Diana";
-    var petImgConfig = "fuck json";
+    curPetName = "Diana"; // pet name can be changed
     petImgConfigJSON_URL = chrome.runtime.getURL("pet-img-config.json");
+
+    // initialize pet
     $("body").parent().append(pet);
     $.getJSON(petImgConfigJSON_URL, function (data) {
         petImgURL = chrome.runtime.getURL(data[curPetName].stand.left);
