@@ -15,7 +15,8 @@
         "name": "Diana",
         "128": "images/DianaPet128.png",
         "stand": {
-            "left": "images/DianaStandL.png"
+            "left": "images/DianaStandL.png",
+            "right": "images/DianaPet128.png"
         },
         "walk": {
             "left1": "images/DianaWalkL1.png",
@@ -23,7 +24,10 @@
             "right1": "images/DianaWalkR1.png",
             "right2": "images/DianaWalkR2.png"
         },
-        "drag": "images/DianaDrag.png",
+        "drag": {
+            "right": "images/DianaDrag.png"
+
+        },
         "jump": "images/DianaJump.png",
         "eat": {
             "eat1": "images/DianaEat1.png",
@@ -35,7 +39,8 @@
         "name": "Eileen",
         "128": "images/EileenPet128.png",
         "stand": {
-            "left": "images/EileenStandL.png"
+            "left": "images/EileenStandL.png",
+            "right": "images/EileenPet128.png"
         },
         "walk": {
             "left1": "images/EileenWalkL1.png",
@@ -43,7 +48,10 @@
             "right1": "images/EileenWalkR1.png",
             "right2": "images/EileenWalkR2.png"
         },
-        "drag": "images/EileenDrag.png",
+        "drag": {
+            "right": "images/EileenDrag.png"
+
+        },
         "jump": "images/EileenJump.png",
         "eat": {
             "eat1": "images/EileenEat1.png",
