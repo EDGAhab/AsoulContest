@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var pet = $("<div class='pet'></div>");
     var noControllingPet = true;
-    curPetName = "Diana"; // pet name can be changed
+    curPetName = "Ava"; // pet name can be changed
     petImgConfigJSON_URL = chrome.runtime.getURL("pet-img-config.json");
 
     // initialize pet
