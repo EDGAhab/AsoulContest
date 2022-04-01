@@ -16,10 +16,26 @@ $(document).ready(function () {
         "bottom": "0px",
         "z-index": "9999",
         "position": "fixed",
+        "touch-action": "none"
     });
 
+    var scrollTop = 0
+    var containx1 = window.scrollX
+    var containx2 = window.scrollX + window.screen.availWidth - 128
+    var containy1 = window.scrollY
+    var containy2 = window.scrollY + window.screen.availHeight- 200
+
+    $(window).scroll(function(){
+        containx1 = window.scrollX
+        containx2 = window.scrollX + window.screen.availWidth - 128
+        containy1 = window.scrollY
+        containy2 = window.scrollY + window.screen.availHeight- 200
+        console.log(containy2);
+        var set1 = [containx1, containy1 , containx2, containy2];
+        $(".pet").draggable( "option", "containment", set1 );
+      });
+
     // Drag pet around
-    // 仍需要添加判定范围，不允许超出窗口
     $(".pet").draggable({
         // axis: "x", // I want it only stand on the ground
         start: function () {
@@ -31,6 +47,9 @@ $(document).ready(function () {
                     petImgURL = chrome.runtime.getURL(data[curPetName].drag.left);
                 }
                 $("#pet-img").attr("src", petImgURL);
+                $(document).scroll(function() {
+                    scrollTop = $(document).scrollTop();
+                });
             })
         },
         stop: function () {
@@ -38,8 +57,45 @@ $(document).ready(function () {
                 petImgURL = petImgURL_beforeDrag;
                 $("#pet-img").attr("src", petImgURL);
             })
+            containx1 = window.scrollX
+            containx2 = window.scrollX + window.screen.availWidth - 128
+            containy1 = window.scrollY
+            containy2 = window.scrollY + window.screen.availHeight- 200
+            var set2 = [containx1, containy1 , containx2, containy2];
+            $(".pet").draggable( "option", "containment", set2 );
+        },
+        containment:[containx1, containy1 , containx2, containy2]
+    });
+
+
+
+    /*
+    //Jump
+    $(document).keydown(function(e){
+        //Up arrow
+        //当拖动以后，animate失败，所以我先整个comment掉了
+        if(e.which == 38) {
+            $.getJSON(petImgConfigJSON_URL, function (data) {
+                petImgURL_beforeJump = petImgURL;
+                if (petImgURL_beforeJump == chrome.runtime.getURL(data[curPetName].stand.right)) {
+                    petImgURL = chrome.runtime.getURL(data[curPetName].jump.right);
+                    $("#pet-img").attr("src", petImgURL);
+                    $(".pet").animate({bottom: "+=50px"}, 300);
+                    $(".pet").animate({bottom: "-=50px"}, 200);
+                } else if (petImgURL_beforeJump == chrome.runtime.getURL(data[curPetName].stand.left)) {
+                    petImgURL = chrome.runtime.getURL(data[curPetName].jump.left);
+                    $("#pet-img").attr("src", petImgURL);
+                    $(".pet").animate({bottom: "+=50px"}, 300);
+                    $(".pet").animate({bottom: "-=50px"}, 200);
+                }
+                petImgURL = petImgURL_beforeJump;
+                setTimeout(function () {
+                    $("#pet-img").attr("src", petImgURL);
+                }, 500)
+            })
         }
     });
+    */
 
     // pet walk around
 
