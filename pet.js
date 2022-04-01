@@ -19,11 +19,30 @@ $(document).ready(function () {
         "touch-action": "none"
     });
 
-    var scrollTop = 0
     var containx1 = window.scrollX
     var containx2 = window.scrollX + window.screen.availWidth - 128
     var containy1 = window.scrollY
     var containy2 = window.scrollY + window.screen.availHeight- 220
+    Idle()
+    //wink
+    async function Idle() {
+        setTimeout(function(){
+            $.getJSON(petImgConfigJSON_URL, function (data) {
+                petImgURL_beforeWink = petImgURL;
+                if (petImgURL_beforeWink == chrome.runtime.getURL(data[curPetName].stand.right)) {
+                    petImgURL = chrome.runtime.getURL(data[curPetName].drag.right);
+                } else if (petImgURL_beforeWink == chrome.runtime.getURL(data[curPetName].stand.left)) {
+                    petImgURL = chrome.runtime.getURL(data[curPetName].drag.left);
+                }
+                $("#pet-img").attr("src", petImgURL);
+                petImgURL = petImgURL_beforeWink;
+                setTimeout(function () {
+                    $("#pet-img").attr("src", petImgURL_beforeWink);
+                }, 170)
+            })
+            Idle();
+        }, 1000 + Math.random()*8000);
+      }
 
     $(window).scroll(function(){
         containx1 = window.scrollX
@@ -47,9 +66,6 @@ $(document).ready(function () {
                     petImgURL = chrome.runtime.getURL(data[curPetName].drag.left);
                 }
                 $("#pet-img").attr("src", petImgURL);
-                $(document).scroll(function() {
-                    scrollTop = $(document).scrollTop();
-                });
             })
         },
         stop: function () {
@@ -68,8 +84,6 @@ $(document).ready(function () {
     });
 
 
-
-    /*
     //Jump
     $(document).keydown(function(e){
         //Up arrow
@@ -95,7 +109,7 @@ $(document).ready(function () {
             })
         }
     });
-    */
+    
 
     // pet walk around
 
