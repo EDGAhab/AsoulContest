@@ -24,8 +24,10 @@ $(document).ready(function () {
     var containy1 = window.scrollY
     var containy2 = window.scrollY + window.screen.availHeight- 220
     Idle()
+    
     //wink
-    async function Idle() {
+    //还不知道为什么会报错，但至少可以运行
+    function Idle() {
         setTimeout(function(){
             $.getJSON(petImgConfigJSON_URL, function (data) {
                 petImgURL_beforeWink = petImgURL;
@@ -37,11 +39,11 @@ $(document).ready(function () {
                 $("#pet-img").attr("src", petImgURL);
                 petImgURL = petImgURL_beforeWink;
                 setTimeout(function () {
-                    $("#pet-img").attr("src", petImgURL_beforeWink);
+                    $("#pet-img").attr("src", petImgURL);
                 }, 170)
             })
             Idle();
-        }, 1000 + Math.random()*8000);
+        }, 3000 + Math.random()*5000);
       }
 
     $(window).scroll(function(){
