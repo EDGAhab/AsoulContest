@@ -23,13 +23,13 @@ $(document).ready(function () {
     var containx1 = window.scrollX
     var containx2 = window.scrollX + window.screen.availWidth - 128
     var containy1 = window.scrollY
-    var containy2 = window.scrollY + window.screen.availHeight- 200
+    var containy2 = window.scrollY + window.screen.availHeight- 220
 
     $(window).scroll(function(){
         containx1 = window.scrollX
         containx2 = window.scrollX + window.screen.availWidth - 128
         containy1 = window.scrollY
-        containy2 = window.scrollY + window.screen.availHeight- 200
+        containy2 = window.scrollY + window.screen.availHeight- 220
         console.log(containy2);
         var set1 = [containx1, containy1 , containx2, containy2];
         $(".pet").draggable( "option", "containment", set1 );
@@ -60,7 +60,7 @@ $(document).ready(function () {
             containx1 = window.scrollX
             containx2 = window.scrollX + window.screen.availWidth - 128
             containy1 = window.scrollY
-            containy2 = window.scrollY + window.screen.availHeight- 200
+            containy2 = window.scrollY + window.screen.availHeight- 220
             var set2 = [containx1, containy1 , containx2, containy2];
             $(".pet").draggable( "option", "containment", set2 );
         },
