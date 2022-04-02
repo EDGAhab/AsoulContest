@@ -99,13 +99,13 @@ $(document).ready(function () {
                 if (petImgURL_beforeJump == chrome.runtime.getURL(data[curPetName].stand.right)) {
                     petImgURL = chrome.runtime.getURL(data[curPetName].jump.right);
                     $("#pet-img").attr("src", petImgURL);
-                    $(".pet").animate({bottom: "+=50px"}, 300);
-                    $(".pet").animate({bottom: "-=50px"}, 200);
+                    $(".pet").animate({top: "-=50px"}, 300);
+                    $(".pet").animate({top: "+=50px"}, 200);
                 } else if (petImgURL_beforeJump == chrome.runtime.getURL(data[curPetName].stand.left)) {
                     petImgURL = chrome.runtime.getURL(data[curPetName].jump.left);
                     $("#pet-img").attr("src", petImgURL);
-                    $(".pet").animate({bottom: "+=50px"}, 300);
-                    $(".pet").animate({bottom: "-=50px"}, 200);
+                    $(".pet").animate({top: "-=50px"}, 300);
+                    $(".pet").animate({top: "+=50px"}, 200);
                 }
                 petImgURL = petImgURL_beforeJump;
                 setTimeout(function () {
