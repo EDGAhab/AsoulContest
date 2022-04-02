@@ -67,9 +67,9 @@
             "right": "images/CarolStandR.png"
         },
         "walk": {
-            "left1": "images/CarolWalkL1.png",
+            "left1": "images/CarolWalkL2.png",
             "left2": "images/CarolWalkL2.png",
-            "right1": "images/CarolWalkR1.png",
+            "right1": "images/CarolWalkR2.png",
             "right2": "images/CarolWalkR2.png"
         },
         "drag": {
@@ -127,9 +127,9 @@
             "right": "images/EileenStandR.png"
         },
         "walk": {
-            "left1": "images/EileenWalkL1.png",
+            "left1": "images/EileenWalkL2.png",
             "left2": "images/EileenWalkL2.png",
-            "right1": "images/EileenWalkR1.png",
+            "right1": "images/EileenWalkR2.png",
             "right2": "images/EileenWalkR2.png"
         },
         "drag": {
