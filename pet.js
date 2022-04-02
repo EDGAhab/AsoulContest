@@ -56,7 +56,6 @@ $(document).ready(function () {
         containx2 = window.scrollX + window.screen.availWidth - 128
         containy1 = window.scrollY
         containy2 = window.scrollY + window.screen.availHeight- 220
-        console.log(containy2);
         var set1 = [containx1, containy1 , containx2, containy2];
         $(".pet").draggable( "option", "containment", set1 );
       });
@@ -97,10 +96,10 @@ $(document).ready(function () {
     //Jump and Walk
     $(document).keydown(function(e){
         if(animating == false) {
-            animating = true;
             //Up arrow
             //当拖动以后，animate失败，所以我先整个comment掉了
             if(e.which == 38) {
+                animating = true;
                 $.getJSON(petImgConfigJSON_URL, function (data) {
                     petImgURL_beforeJump = petImgURL;
                     if (petImgURL_beforeJump == chrome.runtime.getURL(data[curPetName].stand.right)) {
@@ -120,7 +119,8 @@ $(document).ready(function () {
                         animating = false;
                     }, 500)
                 })
-            } else if (e.which == 39) {  //right arrow
+            } else if (e.which == 39  && $(".pet").offset().left < window.screen.availWidth - 148) {  //right arrow
+                animating = true;
                 $.getJSON(petImgConfigJSON_URL, function (data) {
                     petImgURL_afterWalk = chrome.runtime.getURL(data[curPetName].stand.right);
                     if (rightCount == true) {
@@ -141,7 +141,9 @@ $(document).ready(function () {
                     }, 250)
                 })
 
-            } else if (e.which == 37) {  //left arrow
+            } else if (e.which == 37 && $(".pet").offset().left > 20) {  //left arrow
+                animating = true;
+                //console.log($(".pet").offset())
                 $.getJSON(petImgConfigJSON_URL, function (data) {
                     petImgURL_afterWalk = chrome.runtime.getURL(data[curPetName].stand.left);
                     if (leftCount == true) {
