@@ -13,7 +13,9 @@ $(document).ready(function () {
 
     $(".pet").css({
         "left": "100px",
-        "bottom": "0px",
+        //"right": "228px",
+        //"bottom": "0px",
+        "top": "400px",
         "z-index": "9999",
         "position": "fixed",
         "touch-action": "none"
@@ -23,6 +25,8 @@ $(document).ready(function () {
     var containx2 = window.scrollX + window.screen.availWidth - 128
     var containy1 = window.scrollY
     var containy2 = window.scrollY + window.screen.availHeight- 220
+
+    /*
     Idle()
     
     //wink
@@ -45,6 +49,7 @@ $(document).ready(function () {
             Idle();
         }, 3000 + Math.random()*5000);
       }
+    */
 
     $(window).scroll(function(){
         containx1 = window.scrollX
