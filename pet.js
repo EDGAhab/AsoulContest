@@ -13,8 +13,6 @@ $(document).ready(function () {
 
     $(".pet").css({
         "left": "100px",
-        //"right": "228px",
-        //"bottom": "0px",
         "top": "400px",
         "z-index": "9999",
         "position": "fixed",
