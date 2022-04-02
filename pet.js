@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var pet = $("<div class='pet'></div>");
     var noControllingPet = true;
-    curPetName = "Ava"; // pet name can be changed
+    curPetName = "Bella"; // pet name can be changed
     petImgConfigJSON_URL = chrome.runtime.getURL("pet-img-config.json");
 
     var animating = false;
@@ -132,8 +132,14 @@ $(document).ready(function () {
                     }
                     
                     $("#pet-img").attr("src", petImgURL);
-                    $(".pet").animate({left: "+=10px", top: "-=10px"}, 130);
-                    $(".pet").animate({left: "+=10px", top: "+=10px"}, 120);
+                    if(curPetName == "Carol" || curPetName == "Bella" ) {
+                        $(".pet").animate({left: "+=10px"}, 130);
+                        $(".pet").animate({left: "+=10px"}, 120);
+                    } else {
+                        $(".pet").animate({left: "+=10px", top: "-=10px"}, 130);
+                        $(".pet").animate({left: "+=10px", top: "+=10px"}, 120);
+                    }
+                    
                     petImgURL = petImgURL_afterWalk;
                     setTimeout(function () {
                         $("#pet-img").attr("src", petImgURL);
@@ -155,8 +161,13 @@ $(document).ready(function () {
                     }
                     
                     $("#pet-img").attr("src", petImgURL);
-                    $(".pet").animate({left: "-=10px", top: "-=10px"}, 130);
-                    $(".pet").animate({left: "-=10px", top: "+=10px"}, 120);
+                    if(curPetName == "Carol" || curPetName == "Bella" ) {
+                        $(".pet").animate({left: "-=10px"}, 130);
+                        $(".pet").animate({left: "-=10px"}, 120);
+                    } else {
+                        $(".pet").animate({left: "-=10px", top: "-=10px"}, 130);
+                        $(".pet").animate({left: "-=10px", top: "+=10px"}, 120);
+                    }
                     petImgURL = petImgURL_afterWalk;
                     setTimeout(function () {
                         $("#pet-img").attr("src", petImgURL);
