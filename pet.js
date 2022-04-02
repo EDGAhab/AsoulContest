@@ -4,6 +4,8 @@ $(document).ready(function () {
     curPetName = "Ava"; // pet name can be changed
     petImgConfigJSON_URL = chrome.runtime.getURL("pet-img-config.json");
 
+    var animating = false;
+
     // initialize pet
     $("body").parent().append(pet);
     $.getJSON(petImgConfigJSON_URL, function (data) {
@@ -88,31 +90,81 @@ $(document).ready(function () {
         containment:[containx1, containy1 , containx2, containy2]
     });
 
+    var rightCount = true;
+    var leftCount = true;
 
-    //Jump
+
+    //Jump and Walk
     $(document).keydown(function(e){
-        //Up arrow
-        //当拖动以后，animate失败，所以我先整个comment掉了
-        if(e.which == 38) {
-            $.getJSON(petImgConfigJSON_URL, function (data) {
-                petImgURL_beforeJump = petImgURL;
-                if (petImgURL_beforeJump == chrome.runtime.getURL(data[curPetName].stand.right)) {
-                    petImgURL = chrome.runtime.getURL(data[curPetName].jump.right);
+        if(animating == false) {
+            animating = true;
+            //Up arrow
+            //当拖动以后，animate失败，所以我先整个comment掉了
+            if(e.which == 38) {
+                $.getJSON(petImgConfigJSON_URL, function (data) {
+                    petImgURL_beforeJump = petImgURL;
+                    if (petImgURL_beforeJump == chrome.runtime.getURL(data[curPetName].stand.right)) {
+                        petImgURL = chrome.runtime.getURL(data[curPetName].jump.right);
+                        $("#pet-img").attr("src", petImgURL);
+                        $(".pet").animate({top: "-=50px"}, 300);
+                        $(".pet").animate({top: "+=50px"}, 200);
+                    } else if (petImgURL_beforeJump == chrome.runtime.getURL(data[curPetName].stand.left)) {
+                        petImgURL = chrome.runtime.getURL(data[curPetName].jump.left);
+                        $("#pet-img").attr("src", petImgURL);
+                        $(".pet").animate({top: "-=50px"}, 300);
+                        $(".pet").animate({top: "+=50px"}, 200);
+                    }
+                    petImgURL = petImgURL_beforeJump;
+                    setTimeout(function () {
+                        $("#pet-img").attr("src", petImgURL);
+                        animating = false;
+                    }, 500)
+                })
+            } else if (e.which == 39) {  //right arrow
+                $.getJSON(petImgConfigJSON_URL, function (data) {
+                    petImgURL_afterWalk = chrome.runtime.getURL(data[curPetName].stand.right);
+                    if (rightCount == true) {
+                        petImgURL = chrome.runtime.getURL(data[curPetName].walk.right1);
+                        rightCount = false;
+                    } else if (rightCount == false) {
+                        petImgURL = chrome.runtime.getURL(data[curPetName].walk.right2);
+                        rightCount = true;
+                    }
+                    
                     $("#pet-img").attr("src", petImgURL);
-                    $(".pet").animate({top: "-=50px"}, 300);
-                    $(".pet").animate({top: "+=50px"}, 200);
-                } else if (petImgURL_beforeJump == chrome.runtime.getURL(data[curPetName].stand.left)) {
-                    petImgURL = chrome.runtime.getURL(data[curPetName].jump.left);
+                    $(".pet").animate({left: "+=10px", top: "-=10px"}, 130);
+                    $(".pet").animate({left: "+=10px", top: "+=10px"}, 120);
+                    petImgURL = petImgURL_afterWalk;
+                    setTimeout(function () {
+                        $("#pet-img").attr("src", petImgURL);
+                        animating = false;
+                    }, 250)
+                })
+
+            } else if (e.which == 37) {  //left arrow
+                $.getJSON(petImgConfigJSON_URL, function (data) {
+                    petImgURL_afterWalk = chrome.runtime.getURL(data[curPetName].stand.left);
+                    if (leftCount == true) {
+                        petImgURL = chrome.runtime.getURL(data[curPetName].walk.left1);
+                        leftCount = false;
+                    } else if (leftCount == false) {
+                        petImgURL = chrome.runtime.getURL(data[curPetName].walk.left2);
+                        leftCount = true;
+                    }
+                    
                     $("#pet-img").attr("src", petImgURL);
-                    $(".pet").animate({top: "-=50px"}, 300);
-                    $(".pet").animate({top: "+=50px"}, 200);
-                }
-                petImgURL = petImgURL_beforeJump;
-                setTimeout(function () {
-                    $("#pet-img").attr("src", petImgURL);
-                }, 500)
-            })
+                    $(".pet").animate({left: "-=10px", top: "-=10px"}, 130);
+                    $(".pet").animate({left: "-=10px", top: "+=10px"}, 120);
+                    petImgURL = petImgURL_afterWalk;
+                    setTimeout(function () {
+                        $("#pet-img").attr("src", petImgURL);
+                        animating = false;
+                    }, 250)
+                })
+
+            }
         }
+        
     });
     
 
