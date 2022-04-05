@@ -10,7 +10,7 @@
     "128": "/images/icon128.png"
   },
 
-  "permissions": ["storage"],
+  "permissions": ["storage", "contextMenus"],
   "action": {
     "default_popup": "popup.html",
     "default_icons": {
@@ -19,6 +19,10 @@
       "128": "/images/icon128.png"
     }
   },
+
+  "background": {
+		"service_worker": "background.js"
+	},
 
   "content_scripts": [
     {
