@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var pet = $("<div class='pet'></div>");
     var noControllingPet = true;
-    curPetName = "Bella"; // pet name can be changed
+    curPetName = "Ava"; // pet name can be changed
     petImgConfigJSON_URL = chrome.runtime.getURL("pet-img-config.json");
 
     var animating = false;
@@ -26,11 +26,11 @@ $(document).ready(function () {
     var containy1 = window.scrollY
     var containy2 = window.scrollY + window.screen.availHeight- 220
 
-    /*
+    
     Idle()
     
     //wink
-    //还不知道为什么会报错，但至少可以运行
+    //还不知道为什么会报错，但至少可以运行  //现在不报错了？？
     function Idle() {
         setTimeout(function(){
             $.getJSON(petImgConfigJSON_URL, function (data) {
@@ -49,7 +49,7 @@ $(document).ready(function () {
             Idle();
         }, 3000 + Math.random()*5000);
       }
-    */
+    
 
     $(window).scroll(function(){
         containx1 = window.scrollX
