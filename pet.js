@@ -1,7 +1,19 @@
+
 $(document).ready(function () {
+    var curPetName = "noName";
+    console.log("petName0: ", curPetName);
+    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
+        curPetName=request.getName;
+        console.log("petName: ", curPetName);
+        console.log("type:",typeof(curPetName));
+        // console.log(request, sender, sendResponse);
+        sendResponse('GET message：'+JSON.stringify("request"));
+    });
+    console.log("petName2: ", curPetName);
+
     var pet = $("<div class='pet'></div>");
     var noControllingPet = true;
-    curPetName = "Ava"; // pet name can be changed
+    var curPetName = "Ava"; // pet name can be changed
     petImgConfigJSON_URL = chrome.runtime.getURL("pet-img-config.json");
 
     var animating = false;
@@ -27,28 +39,28 @@ $(document).ready(function () {
     var containy2 = window.scrollY + window.screen.availHeight- 220
 
     
-    Idle()
+    // Idle()
     
-    //wink
-    //还不知道为什么会报错，但至少可以运行  //现在不报错了？？
-    function Idle() {
-        setTimeout(function(){
-            $.getJSON(petImgConfigJSON_URL, function (data) {
-                petImgURL_beforeWink = petImgURL;
-                if (petImgURL_beforeWink == chrome.runtime.getURL(data[curPetName].stand.right)) {
-                    petImgURL = chrome.runtime.getURL(data[curPetName].drag.right);
-                } else if (petImgURL_beforeWink == chrome.runtime.getURL(data[curPetName].stand.left)) {
-                    petImgURL = chrome.runtime.getURL(data[curPetName].drag.left);
-                }
-                $("#pet-img").attr("src", petImgURL);
-                petImgURL = petImgURL_beforeWink;
-                setTimeout(function () {
-                    $("#pet-img").attr("src", petImgURL);
-                }, 170)
-            })
-            Idle();
-        }, 3000 + Math.random()*5000);
-      }
+    // //wink
+    // //还不知道为什么会报错，但至少可以运行  //现在不报错了？？
+    // function Idle() {
+    //     setTimeout(function(){
+    //         $.getJSON(petImgConfigJSON_URL, function (data) {
+    //             petImgURL_beforeWink = petImgURL;
+    //             if (petImgURL_beforeWink == chrome.runtime.getURL(data[curPetName].stand.right)) {
+    //                 petImgURL = chrome.runtime.getURL(data[curPetName].drag.right);
+    //             } else if (petImgURL_beforeWink == chrome.runtime.getURL(data[curPetName].stand.left)) {
+    //                 petImgURL = chrome.runtime.getURL(data[curPetName].drag.left);
+    //             }
+    //             $("#pet-img").attr("src", petImgURL);
+    //             petImgURL = petImgURL_beforeWink;
+    //             setTimeout(function () {
+    //                 $("#pet-img").attr("src", petImgURL);
+    //             }, 170)
+    //         })
+    //         Idle();
+    //     }, 3000 + Math.random()*5000);
+    //   }
     
 
     $(window).scroll(function(){

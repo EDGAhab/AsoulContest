@@ -14,6 +14,9 @@ changeButton3.addEventListener('click', onChange3);
 changeButton4.addEventListener('click', onChange4);
 changeButton5.addEventListener('click', onChange5);
 
+const changeSubmit = document.getElementById("pet-submit");
+var petName = "Ava";
+
 
 
 
@@ -80,6 +83,18 @@ function onChange5(e) {
                     `<img height="100" style="max-width: 120px;background-position: top left;" src=${image} />`+
                     `</p>`;
     msg.innerHTML = newContent;
+}
+
+
+changeSubmit.onclick= function(e) {
+    e.preventDefault();
+
+    chrome.tabs.query({active: true, currentWindow: true},function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {getName: petName}, function(response) {
+            chrome.tabs.reload(tabs[0].id);
+            console.log(response);
+        });
+      });
 }
 
 
