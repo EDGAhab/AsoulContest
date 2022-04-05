@@ -24,6 +24,7 @@ function onClickHandler(info, tab) {
   if (date) { url = url+"&dates="+date[0]+"/"; }
   if (date[1]) { url = url+date[1]; } else { url = url+date[0]; }
   //chrome.windows.open(url, '_blank');
+  url = url.slice(0,-9);
   chrome.tabs.create({
     url: url,
   });
