@@ -30,7 +30,7 @@ $(document).ready(function () {
     Idle()
     
     //wink
-    //还不知道为什么会报错，但至少可以运行
+    //还不知道为什么会报错，但至少可以运行  //现在不报错了？？
     function Idle() {
         setTimeout(function(){
             $.getJSON(petImgConfigJSON_URL, function (data) {
