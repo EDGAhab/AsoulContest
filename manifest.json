@@ -10,7 +10,7 @@
     "128": "/images/icon128.png"
   },
 
-  "permissions": ["storage", "contextMenus"],
+  "permissions": ["storage", "contextMenus", "tabs"],
   "action": {
     "default_popup": "popup.html",
     "default_icons": {
