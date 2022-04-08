@@ -1,19 +1,22 @@
+var curPetName = "Ava";
 
-$(document).ready(function () {
-    var curPetName = "noName";
-    console.log("petName0: ", curPetName);
+
+$(document).ready(function readyHandler() {
+    //console.log("petName0: ", curPetName);
+    //console.log("petName2: ", curPetName);
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         curPetName=request.getName;
         console.log("petName: ", curPetName);
         console.log("type:",typeof(curPetName));
-        // console.log(request, sender, sendResponse);
         sendResponse('GET message：'+JSON.stringify("request"));
+        $("body").parent().children("div").remove();
+        $(document).off();
+        readyHandler()
     });
-    console.log("petName2: ", curPetName);
 
     var pet = $("<div class='pet'></div>");
     var noControllingPet = true;
-    var curPetName = "Ava"; // pet name can be changed
+    //var curPetName = "Ava"; // pet name can be changed
     petImgConfigJSON_URL = chrome.runtime.getURL("pet-img-config.json");
 
     var animating = false;
@@ -22,6 +25,7 @@ $(document).ready(function () {
     $("body").parent().append(pet);
     $.getJSON(petImgConfigJSON_URL, function (data) {
         petImgURL = chrome.runtime.getURL(data[curPetName].stand.right);
+        $('.pet img').remove(); 
         $('.pet').prepend($('<img>', { id: "pet-img", src: petImgURL }));
     })
 

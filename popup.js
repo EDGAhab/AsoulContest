@@ -88,13 +88,12 @@ function onChange5(e) {
 
 changeSubmit.onclick= function(e) {
     e.preventDefault();
-
+    //chrome.tabs.sendMessage(tabs[0].id, {getName: petName});
     chrome.tabs.query({active: true, currentWindow: true},function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {getName: petName}, function(response) {
-            chrome.tabs.reload(tabs[0].id);
-            console.log(response);
-        });
-      });
+        //chrome.tabs.reload();
+        //chrome.tabs.reload();
+        chrome.tabs.sendMessage(tabs[0].id, {getName: petName});
+    });
 }
 
 
