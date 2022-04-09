@@ -6,7 +6,7 @@
   border-width: 2px;
   border-color: #4682b4;
   background-color: #e0ffff;
-  width: 200px;
+  width: 300px;
   text-align: center;
   line-height: 30px;
   padding: 3px 0;
@@ -31,4 +31,39 @@ btn:link,
 btn:active {
   background: #444;
   text-decoration: none;
+}
+.progress-container {
+  position: relative;
+  background-position: center;
+}
+
+.progress-container progress {
+  background-color: #eee;
+}
+
+.progress-container progress::-webkit-progress-bar {
+  background-color: #eee;
+}
+
+.progress-container progress::-webkit-progress-value {
+  background-color: red;
+}
+
+.progress-container .progress-label {
+  position: absolute;
+  top: 7px;
+  margin: 0;
+  left: 65px;
+  font-size: 22px;
+}
+
+
+.row {
+  display: flex;
+  padding: 5px;
+}
+
+.column {
+  flex:10%;
+  padding: 1px;
 }
