@@ -148,5 +148,9 @@
             "right2": "images/EileenEatR2.png",
             "right3": "images/EileenEatR3.png"
         }
+    },
+    "Cursor": {
+        "point": "cursors/point.png",
+        "move": "cursors/move.png"
     }
 }

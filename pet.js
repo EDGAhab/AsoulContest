@@ -2,24 +2,24 @@ var curPetName = "Ava";
 
 
 $(document).ready(function readyHandler() {
-    //console.log("petName0: ", curPetName);
-    //console.log("petName2: ", curPetName);
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         curPetName=request.getName;
         console.log("petName: ", curPetName);
         console.log("type:",typeof(curPetName));
-        sendResponse('GET message：'+JSON.stringify("request"));
+        sendResponse('GET message:'+JSON.stringify("request"));
         $("body").parent().children("div").remove();
         $(document).off();
         readyHandler()
     });
 
     var pet = $("<div class='pet'></div>");
+
     var noControllingPet = true;
     //var curPetName = "Ava"; // pet name can be changed
     petImgConfigJSON_URL = chrome.runtime.getURL("pet-img-config.json");
 
     var animating = false;
+
 
     // initialize pet
     $("body").parent().append(pet);
@@ -27,8 +27,12 @@ $(document).ready(function readyHandler() {
         petImgURL = chrome.runtime.getURL(data[curPetName].stand.right);
         $('.pet img').remove(); 
         $('.pet').prepend($('<img>', { id: "pet-img", src: petImgURL }));
+
+        document.body.style.cursor = 'url('+chrome.runtime.getURL(data['Cursor'].point)+'), default'
+        $('.pet').css('cursor', 'url('+chrome.runtime.getURL(data['Cursor'].move)+'), auto');
     })
 
+    /*
     $(".pet").css({
         "left": "100px",
         "top": "400px",
@@ -36,6 +40,7 @@ $(document).ready(function readyHandler() {
         "position": "fixed",
         "touch-action": "none"
     });
+    */
 
     var containx1 = window.scrollX
     var containx2 = window.scrollX + window.screen.availWidth - 128
@@ -75,10 +80,35 @@ $(document).ready(function readyHandler() {
         var set1 = [containx1, containy1 , containx2, containy2];
         $(".pet").draggable( "option", "containment", set1 );
       });
+    
+    
+    /*
+
+    var contextMenu = $("<div id='context-menu'> <div class='item'>Option 1</div> <div class='item'>Option 2</div></div>");
+
+
+    
+    //TodoList
+    $(".pet").on({
+        mouseenter: function () {
+            //ENTER
+            contextMenu.top = pet.offsetTop
+            contextMenu.left = pet.offsetLeft + 300
+            contextMenu.classList.add("visible");
+        },
+        mouseleave: function () {
+            //LEAVE
+        }
+    });
+    */
+    
+
+    
+
+
 
     // Drag pet around
     $(".pet").draggable({
-        // axis: "x", // I want it only stand on the ground
         start: function () {
             $.getJSON(petImgConfigJSON_URL, function (data) {
                 petImgURL_beforeDrag = petImgURL;
@@ -113,7 +143,6 @@ $(document).ready(function readyHandler() {
     $(document).keydown(function(e){
         if(animating == false) {
             //Up arrow
-            //当拖动以后，animate失败，所以我先整个comment掉了
             if(e.which == 38) {
                 animating = true;
                 $.getJSON(petImgConfigJSON_URL, function (data) {
@@ -195,8 +224,5 @@ $(document).ready(function readyHandler() {
         }
         
     });
-    
-
-    // pet walk around
 
 });
