@@ -6,7 +6,7 @@
   border-width: 2px;
   border-color: #4682b4;
   background-color: #e0ffff;
-  width: 300px;
+  width: 200px;
   text-align: center;
   line-height: 30px;
   padding: 3px 0;
@@ -34,7 +34,8 @@ btn:active {
 }
 .progress-container {
   position: relative;
-  background-position: center;
+  background-position: left;
+  padding-right: 10px;
 }
 
 .progress-container progress {
@@ -61,9 +62,10 @@ btn:active {
 .row {
   display: flex;
   padding: 5px;
+
 }
 
 .column {
-  flex:10%;
+  flex:5%;
   padding: 1px;
 }
