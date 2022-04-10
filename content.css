@@ -1,128 +1,32 @@
-@keyframes jump {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-30px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-
-
-.ava-pet {
-    height: 128px;
-    width: 128px;
-    position: fixed;
-    z-index: 1000;
-    background-image: url('chrome-extension://__MSG_@@extension_id__/images/AvaPet128.png');
-    background-size: 128px 128px;
-    background-position: 0 0;
-    cursor: -webkit-grab;
-  }
-
-.bella-pet {
-    height: 128px;
-    width: 128px;
-    position: fixed;
-    z-index: 1000;
-    background-image: url('chrome-extension://__MSG_@@extension_id__/images/BellaPet128.png');
-    background-size: 128px 128px;
-    background-position: 0 0;
-    cursor: -webkit-grab;
-  }
-
-.carol-pet {
-    height: 128px;
-    width: 128px;
-    position: fixed;
-    z-index: 1000;
-    background-image: url('chrome-extension://__MSG_@@extension_id__/images/CarolPet128.png');
-    background-size: 128px 128px;
-    background-position: 0 0;
-    cursor: -webkit-grab;
-  }
-
-.diana-pet {
-    height: 128px;
-    width: 128px;
-    position: fixed;
-    z-index: 1000;
-    background-image: url('chrome-extension://__MSG_@@extension_id__/images/DianaPet128.png');
-    background-size: 128px 128px;
-    background-position: 0 0;
-    cursor: -webkit-grab;
-  }
-
-.diana-pet.jump {
-  background-image: url('chrome-extension://__MSG_@@extension_id__/images/DianaJump.png');
-  background-repeat: repeat-y;
-  background-size: 128px 128px;
-  background-position: 0 0;
-  animation: jump 0.3s steps(3);
-}
-
-.diana-pet.drag {
-  height: 128px;
-  width: 128px;
+.pet {
+  left: 100px;
+  top: 400px;
+  z-index: 9999;
   position: fixed;
-  z-index: 1000;
-  background-image: url('chrome-extension://__MSG_@@extension_id__/images/DianaDrag.png');
-  background-size: 128px 128px;
-  background-position: 0 0;
-  cursor: -webkit-grab;
+  touch-action: none;
 }
 
-.diana-pet.wink {
-  height: 128px;
-  width: 128px;
+#context-menu {
   position: fixed;
-  z-index: 1000;
-  background-image: url('chrome-extension://__MSG_@@extension_id__/images/DianaEat2.png');
-  background-size: 128px 128px;
-  background-position: 0 0;
-  cursor: -webkit-grab;
+  z-index: 10000;
+  width: 150px;
+  background: #1b1a1a;
+  border-radius: 5px;
+  display: none;
 }
 
-.eileen-pet {
-    height: 128px;
-    width: 128px;
-    position: fixed;
-    z-index: 1000;
-    background-image: url('chrome-extension://__MSG_@@extension_id__/images/EileenPet128.png');
-    background-size: 128px 128px;
-    background-position: 0 0;
-    cursor: -webkit-grab;
-  }
-
-.eileen-pet.jump {
-  background-image: url('chrome-extension://__MSG_@@extension_id__/images/EileenJump.png');
-  background-repeat: repeat-y;
-  background-size: 128px 128px;
-  background-position: 0 0;
-  animation: jump 0.3s steps(3);
-  animation-delay: 0s;
+#context-menu.visible {
+  display: block;
 }
 
-.eileen-pet.drag {
-  height: 128px;
-  width: 128px;
-  position: fixed;
-  z-index: 1000;
-  background-image: url('chrome-extension://__MSG_@@extension_id__/images/EileenDrag.png');
-  background-size: 128px 128px;
-  background-position: 0 0;
-  cursor: -webkit-grab;
+#context-menu .item {
+  padding: 8px 10px;
+  font-size: 15px;
+  color: #eee;
+  cursor: pointer;
+  border-radius: inherit;
 }
 
-.eileen-pet.wink {
-  height: 128px;
-  width: 128px;
-  position: fixed;
-  z-index: 1000;
-  background-image: url('chrome-extension://__MSG_@@extension_id__/images/EileenEat2.png');
-  background-size: 128px 128px;
-  background-position: 0 0;
-  cursor: -webkit-grab;
+#context-menu .hover {
+  background: #343434;
 }

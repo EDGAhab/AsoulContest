@@ -1,7 +1,7 @@
 {
   "name": "AsoulHelper",
   "description": "web pet- Asoul help you plan!",
-  "version": "1.0",
+  "version": "0.0.1",
   "manifest_version": 3,
 
   "icons": {
@@ -41,7 +41,7 @@
   "web_accessible_resources": [
     {
       "matches": ["<all_urls>"],
-      "resources": ["images/*", "DianaStandL.png", "pet-img-config.json"]
+      "resources": ["images/*", "cursors/*", "pet-img-config.json"]
     }
   ]
 }
