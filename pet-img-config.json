@@ -2,6 +2,8 @@
     "Ava": {
         "name": "Ava",
         "128": "images/AvaPet128.png",
+        "point": "cursors/AvaPoint.png",
+        "move": "cursors/AvaMove.png",
         "stand": {
             "left": "images/AvaStandL.png",
             "right": "images/AvaStandR.png"
@@ -32,6 +34,8 @@
     "Bella": {
         "name": "Bella",
         "128": "images/BellaPet128.png",
+        "point": "cursors/BellaPoint.png",
+        "move": "cursors/BellaMove.png",
         "stand": {
             "left": "images/BellaStandL.png",
             "right": "images/BellaStandR.png"
@@ -62,6 +66,8 @@
     "Carol": {
         "name": "Carol",
         "128": "images/CarolPet128.png",
+        "point": "cursors/CarolPoint.png",
+        "move": "cursors/CarolMove.png",
         "stand": {
             "left": "images/CarolStandL.png",
             "right": "images/CarolStandR.png"
@@ -92,6 +98,8 @@
     "Diana": {
         "name": "Diana",
         "128": "images/DianaPet128.png",
+        "point": "cursors/DianaPoint.png",
+        "move": "cursors/DianaMove.png",
         "stand": {
             "left": "images/DianaStandL.png",
             "right": "images/DianaStandR.png"
@@ -122,6 +130,8 @@
     "Eileen": {
         "name": "Eileen",
         "128": "images/EileenPet128.png",
+        "point": "cursors/EileenPoint.png",
+        "move": "cursors/EileenMove.png",
         "stand": {
             "left": "images/EileenStandL.png",
             "right": "images/EileenStandR.png"
@@ -148,9 +158,5 @@
             "right2": "images/EileenEatR2.png",
             "right3": "images/EileenEatR3.png"
         }
-    },
-    "Cursor": {
-        "point": "cursors/point.png",
-        "move": "cursors/move.png"
     }
 }

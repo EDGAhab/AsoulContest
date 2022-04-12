@@ -28,8 +28,8 @@ $(document).ready(function readyHandler() {
         $('.pet img').remove(); 
         $('.pet').prepend($('<img>', { id: "pet-img", src: petImgURL }));
 
-        document.body.style.cursor = 'url('+chrome.runtime.getURL(data['Cursor'].point)+'), default'
-        $('.pet').css('cursor', 'url('+chrome.runtime.getURL(data['Cursor'].move)+'), auto');
+        document.body.style.cursor = 'url('+chrome.runtime.getURL(data[curPetName].point)+'), default'
+        $('.pet').css('cursor', 'url('+chrome.runtime.getURL(data[curPetName].move)+'), auto');
     })
 
     /*
