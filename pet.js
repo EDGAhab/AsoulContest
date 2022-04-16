@@ -1,5 +1,14 @@
 var curPetName = "Ava";
-
+var standRight;
+var standLeft;
+var dragLeft;
+var dragRight;
+var walkLeft1;
+var walkLeft2;
+var walkRight1;
+var walkRight2;
+var jumpLeft;
+var jumpRight;
 
 $(document).ready(function readyHandler() {
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
@@ -11,12 +20,25 @@ $(document).ready(function readyHandler() {
         $(document).off();
         readyHandler()
     });
+    petImgConfigJSON_URL = chrome.runtime.getURL("pet-img-config.json");
+
+    $.getJSON(petImgConfigJSON_URL, function (data) {
+        standRight = chrome.runtime.getURL(data[curPetName].stand.right);
+        standLeft = chrome.runtime.getURL(data[curPetName].stand.left);
+        dragRight = chrome.runtime.getURL(data[curPetName].drag.right);
+        dragLeft = chrome.runtime.getURL(data[curPetName].drag.left);
+        walkRight1 = chrome.runtime.getURL(data[curPetName].walk.right1);
+        walkRight2 = chrome.runtime.getURL(data[curPetName].walk.right2);
+        walkLeft1 = chrome.runtime.getURL(data[curPetName].walk.left1);
+        walkLeft2 = chrome.runtime.getURL(data[curPetName].walk.left2);
+        jumpRight = chrome.runtime.getURL(data[curPetName].jump.right);
+        jumpLeft = chrome.runtime.getURL(data[curPetName].jump.left);
+    })
 
     var pet = $("<div class='pet'></div>");
 
     var noControllingPet = true;
     //var curPetName = "Ava"; // pet name can be changed
-    petImgConfigJSON_URL = chrome.runtime.getURL("pet-img-config.json");
 
     var animating = false;
 
@@ -24,7 +46,7 @@ $(document).ready(function readyHandler() {
     // initialize pet
     $("body").parent().append(pet);
     $.getJSON(petImgConfigJSON_URL, function (data) {
-        petImgURL = chrome.runtime.getURL(data[curPetName].stand.right);
+        petImgURL = standRight;
         $('.pet img').remove(); 
         $('.pet').prepend($('<img>', { id: "pet-img", src: petImgURL }));
 
@@ -47,7 +69,7 @@ $(document).ready(function readyHandler() {
     var containy1 = window.scrollY
     var containy2 = window.scrollY + window.screen.availHeight- 220
 
-    
+
     Idle()
     
     //wink
@@ -56,10 +78,10 @@ $(document).ready(function readyHandler() {
         setTimeout(function(){
             $.getJSON(petImgConfigJSON_URL, function (data) {
                 petImgURL_beforeWink = petImgURL;
-                if (petImgURL_beforeWink == chrome.runtime.getURL(data[curPetName].stand.right)) {
-                    petImgURL = chrome.runtime.getURL(data[curPetName].drag.right);
-                } else if (petImgURL_beforeWink == chrome.runtime.getURL(data[curPetName].stand.left)) {
-                    petImgURL = chrome.runtime.getURL(data[curPetName].drag.left);
+                if (petImgURL_beforeWink == standRight) {
+                    petImgURL = dragRight;
+                } else if (petImgURL_beforeWink == standLeft) {
+                    petImgURL = dragLeft;
                 }
                 $("#pet-img").attr("src", petImgURL);
                 petImgURL = petImgURL_beforeWink;
@@ -71,6 +93,7 @@ $(document).ready(function readyHandler() {
         }, 3000 + Math.random()*5000);
     }
     
+    
 
     $(window).scroll(function(){
         containx1 = window.scrollX
@@ -81,50 +104,25 @@ $(document).ready(function readyHandler() {
         $(".pet").draggable( "option", "containment", set1 );
       });
     
-    
-    /*
-
-    var contextMenu = $("<div id='context-menu'> <div class='item'>Option 1</div> <div class='item'>Option 2</div></div>");
-
-
-    
-    //TodoList
-    $(".pet").on({
-        mouseenter: function () {
-            //ENTER
-            contextMenu.top = pet.offsetTop
-            contextMenu.left = pet.offsetLeft + 300
-            contextMenu.classList.add("visible");
-        },
-        mouseleave: function () {
-            //LEAVE
-        }
-    });
-    */
-    
-
-    
-
-
 
     // Drag pet around
     $(".pet").draggable({
         start: function () {
             $.getJSON(petImgConfigJSON_URL, function (data) {
                 petImgURL_beforeDrag = petImgURL;
-                if (petImgURL_beforeDrag == chrome.runtime.getURL(data[curPetName].stand.right)) {
-                    petImgURL = chrome.runtime.getURL(data[curPetName].drag.right);
-                } else if (petImgURL_beforeDrag == chrome.runtime.getURL(data[curPetName].stand.left)) {
-                    petImgURL = chrome.runtime.getURL(data[curPetName].drag.left);
+                if (petImgURL_beforeDrag == standRight) {
+                    petImgURL = dragRight;
+                } else if (petImgURL_beforeDrag == standLeft) {
+                    petImgURL = dragLeft;
                 }
                 $("#pet-img").attr("src", petImgURL);
-            })
+            }, () => chrome.runtime.lastError)
         },
         stop: function () {
             $.getJSON(petImgConfigJSON_URL, function (data) {
                 petImgURL = petImgURL_beforeDrag;
                 $("#pet-img").attr("src", petImgURL);
-            })
+            }, () => chrome.runtime.lastError)
             containx1 = window.scrollX
             containx2 = window.scrollX + window.screen.availWidth - 128
             containy1 = window.scrollY
@@ -133,7 +131,7 @@ $(document).ready(function readyHandler() {
             $(".pet").draggable( "option", "containment", set2 );
         },
         containment:[containx1, containy1 , containx2, containy2]
-    });
+    }, () => chrome.runtime.lastError);
 
     var rightCount = true;
     var leftCount = true;
@@ -147,13 +145,13 @@ $(document).ready(function readyHandler() {
                 animating = true;
                 $.getJSON(petImgConfigJSON_URL, function (data) {
                     petImgURL_beforeJump = petImgURL;
-                    if (petImgURL_beforeJump == chrome.runtime.getURL(data[curPetName].stand.right)) {
-                        petImgURL = chrome.runtime.getURL(data[curPetName].jump.right);
+                    if (petImgURL_beforeJump == standRight) {
+                        petImgURL = jumpRight;
                         $("#pet-img").attr("src", petImgURL);
                         $(".pet").animate({top: "-=50px"}, 300);
                         $(".pet").animate({top: "+=50px"}, 200);
-                    } else if (petImgURL_beforeJump == chrome.runtime.getURL(data[curPetName].stand.left)) {
-                        petImgURL = chrome.runtime.getURL(data[curPetName].jump.left);
+                    } else if (petImgURL_beforeJump == standLeft) {
+                        petImgURL = jumpLeft;
                         $("#pet-img").attr("src", petImgURL);
                         $(".pet").animate({top: "-=50px"}, 300);
                         $(".pet").animate({top: "+=50px"}, 200);
@@ -167,12 +165,12 @@ $(document).ready(function readyHandler() {
             } else if (e.which == 39  && $(".pet").offset().left < window.screen.availWidth - 148) {  //right arrow
                 animating = true;
                 $.getJSON(petImgConfigJSON_URL, function (data) {
-                    petImgURL_afterWalk = chrome.runtime.getURL(data[curPetName].stand.right);
+                    petImgURL_afterWalk = standRight;
                     if (rightCount == true) {
-                        petImgURL = chrome.runtime.getURL(data[curPetName].walk.right1);
+                        petImgURL = walkRight1;
                         rightCount = false;
                     } else if (rightCount == false) {
-                        petImgURL = chrome.runtime.getURL(data[curPetName].walk.right2);
+                        petImgURL = walkRight2;
                         rightCount = true;
                     }
                     
@@ -196,12 +194,12 @@ $(document).ready(function readyHandler() {
                 animating = true;
                 //console.log($(".pet").offset())
                 $.getJSON(petImgConfigJSON_URL, function (data) {
-                    petImgURL_afterWalk = chrome.runtime.getURL(data[curPetName].stand.left);
+                    petImgURL_afterWalk = standLeft;
                     if (leftCount == true) {
-                        petImgURL = chrome.runtime.getURL(data[curPetName].walk.left1);
+                        petImgURL = walkLeft1;
                         leftCount = false;
                     } else if (leftCount == false) {
-                        petImgURL = chrome.runtime.getURL(data[curPetName].walk.left2);
+                        petImgURL = walkLeft2;
                         leftCount = true;
                     }
                     
@@ -225,4 +223,4 @@ $(document).ready(function readyHandler() {
         
     });
 
-});
+}, () => chrome.runtime.lastError);
