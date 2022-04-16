@@ -9,12 +9,6 @@ var walkRight1;
 var walkRight2;
 var jumpLeft;
 var jumpRight;
-var eatRight1;
-var eatRight2;
-var eatRight3;
-var eatLeft1;
-var eatLeft2;
-var eatLeft3;
 
 $(document).ready(function readyHandler() {
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
@@ -39,12 +33,6 @@ $(document).ready(function readyHandler() {
         walkLeft2 = chrome.runtime.getURL(data[curPetName].walk.left2);
         jumpRight = chrome.runtime.getURL(data[curPetName].jump.right);
         jumpLeft = chrome.runtime.getURL(data[curPetName].jump.left);
-        eatRight1 = chrome.runtime.getURL(data[curPetName].eat.right1);
-        eatRight2 = chrome.runtime.getURL(data[curPetName].eat.right2);
-        eatRight3 = chrome.runtime.getURL(data[curPetName].eat.right3);
-        eatLeft1 = chrome.runtime.getURL(data[curPetName].eat.left1);
-        eatLeft2 = chrome.runtime.getURL(data[curPetName].eat.left2);
-        eatLeft3 = chrome.runtime.getURL(data[curPetName].eat.left3);
     })
 
     var pet = $("<div class='pet'></div>");
@@ -81,139 +69,30 @@ $(document).ready(function readyHandler() {
     var containy1 = window.scrollY
     var containy2 = window.scrollY + window.screen.availHeight- 220
 
-    var inputTarget = null;
-    var finishEating = false;
 
     Idle()
+    
+    //wink
+    //还不知道为什么会报错，但至少可以运行
     function Idle() {
-        if(animating == false) {
-            animating = true;
-            if(inputTarget != null && inputTarget.value != "") {
-                setTimeout(function(){
-                    console.log(inputTarget.value)
-                    petImgURL_beforeEat = petImgURL
-                    if (petImgURL_beforeWink == standRight) {
-                        petImgURL = eatRight1;
-                    } else if (petImgURL_beforeWink == standLeft) {
-                        petImgURL = eatLeft1;
-                    }
-                    $("#pet-img").attr("src", petImgURL);
-
-                    eatInputValue(inputTarget)
-
-                    petImgURL = petImgURL_beforeEat;
-                    setTimeout(function () {
-                        $("#pet-img").attr("src", petImgURL);
-                    }, 200)
-
-                    if(inputTarget.value == "") {
-                        finishEating = true;
-                    }
-
-                    Idle();
-                }, 1000 + Math.random()*1000);
-            } else {
-                if(finishEating == true) {
-                    setTimeout(function(){
-                        finishEating = false;
-                        petImgURL_beforeJump = petImgURL;
-                        if (petImgURL_beforeJump == standRight) {
-                            petImgURL = jumpRight;
-                            $("#pet-img").attr("src", petImgURL);
-                            $(".pet").animate({top: "-=50px"}, 300);
-                            $(".pet").animate({top: "+=50px"}, 200);
-                        } else if (petImgURL_beforeJump == standLeft) {
-                            petImgURL = jumpLeft;
-                            $("#pet-img").attr("src", petImgURL);
-                            $(".pet").animate({top: "-=50px"}, 300);
-                            $(".pet").animate({top: "+=50px"}, 200);
-                        }
-                        petImgURL = petImgURL_beforeJump;
-                        setTimeout(function () {
-                            $("#pet-img").attr("src", petImgURL);
-                            animating = false;
-                        }, 500)
-                        Idle();
-                    }, 100);
-                } else {
-                    setTimeout(function(){
-                        petImgURL_beforeWink = petImgURL;
-                        if (petImgURL_beforeWink == standRight) {
-                            petImgURL = dragRight;
-                        } else if (petImgURL_beforeWink == standLeft) {
-                            petImgURL = dragLeft;
-                        }
-                        $("#pet-img").attr("src", petImgURL);
-                        petImgURL = petImgURL_beforeWink;
-                        setTimeout(function () {
-                            $("#pet-img").attr("src", petImgURL);
-                        }, 170)
-                        Idle();
-                    }, 3000 + Math.random()*5000);
-                }
-                
-            }
-            animating = false;
-        }
-    }
-
-    //eat
-    document.body.addEventListener('input', async event => {
-        inputTarget = event.target
-        console.log(inputTarget.value)
-        /*
-        petImgURL_beforeEat = petImgURL
-        if (animating == false && petImgURL_beforeEat == standRight) {
-            animating = true;
-            petImgURL = eatRight1;
-            $("#pet-img").attr("src", petImgURL);
-            petImgURL = eatRight2;
-            setTimeout(function () {
-                $("#pet-img").attr("src", petImgURL);
-            }, 2000)
-            petImgURL = eatRight3;
-            setTimeout(function () {
-                $("#pet-img").attr("src", petImgURL);
-            }, 2000)
-            petImgURL = petImgURL_beforeEat;
-            setTimeout(function () {
-                $("#pet-img").attr("src", petImgURL);
-            }, 2000)
-            //eatInputValue(event.target)
-            animating = false;
-        }
-        */
-    });
-
-    function eatInputValue(elem) {
-        // remember selection position
-        const start = elem.selectionStart, end = elem.selectionEnd;
-        elem.value = elem.value.slice(1);
-        // restore selection position
-        elem.setSelectionRange(Math.max(start - 1, 0), Math.max(end - 1, 0));
-    }
-
-
-
-/*
-    Eat()
-    function Eat() {
         setTimeout(function(){
-            petImgURL_beforeWink = petImgURL;
-            if (petImgURL_beforeWink == standRight) {
-                petImgURL = dragRight;
-            } else if (petImgURL_beforeWink == standLeft) {
-                petImgURL = dragLeft;
-            }
-            $("#pet-img").attr("src", petImgURL);
-            petImgURL = petImgURL_beforeWink;
-            setTimeout(function () {
+            $.getJSON(petImgConfigJSON_URL, function (data) {
+                petImgURL_beforeWink = petImgURL;
+                if (petImgURL_beforeWink == standRight) {
+                    petImgURL = dragRight;
+                } else if (petImgURL_beforeWink == standLeft) {
+                    petImgURL = dragLeft;
+                }
                 $("#pet-img").attr("src", petImgURL);
-            }, 170)
-            Wink();
+                petImgURL = petImgURL_beforeWink;
+                setTimeout(function () {
+                    $("#pet-img").attr("src", petImgURL);
+                }, 170)
+            })
+            Idle();
         }, 3000 + Math.random()*5000);
     }
-*/
+    
     
 
     $(window).scroll(function(){
