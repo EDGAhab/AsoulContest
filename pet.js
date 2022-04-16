@@ -1,5 +1,20 @@
 var curPetName = "Ava";
-
+var standRight;
+var standLeft;
+var dragLeft;
+var dragRight;
+var walkLeft1;
+var walkLeft2;
+var walkRight1;
+var walkRight2;
+var jumpLeft;
+var jumpRight;
+var eatRight1;
+var eatRight2;
+var eatRight3;
+var eatLeft1;
+var eatLeft2;
+var eatLeft3;
 
 $(document).ready(function readyHandler() {
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
@@ -7,16 +22,36 @@ $(document).ready(function readyHandler() {
         console.log("petName: ", curPetName);
         console.log("type:",typeof(curPetName));
         sendResponse('GET message:'+JSON.stringify("request"));
+        
         $("body").parent().children("div").remove();
         $(document).off();
         readyHandler()
     });
+    petImgConfigJSON_URL = chrome.runtime.getURL("pet-img-config.json");
+
+    $.getJSON(petImgConfigJSON_URL, function (data) {
+        standRight = chrome.runtime.getURL(data[curPetName].stand.right);
+        standLeft = chrome.runtime.getURL(data[curPetName].stand.left);
+        dragRight = chrome.runtime.getURL(data[curPetName].drag.right);
+        dragLeft = chrome.runtime.getURL(data[curPetName].drag.left);
+        walkRight1 = chrome.runtime.getURL(data[curPetName].walk.right1);
+        walkRight2 = chrome.runtime.getURL(data[curPetName].walk.right2);
+        walkLeft1 = chrome.runtime.getURL(data[curPetName].walk.left1);
+        walkLeft2 = chrome.runtime.getURL(data[curPetName].walk.left2);
+        jumpRight = chrome.runtime.getURL(data[curPetName].jump.right);
+        jumpLeft = chrome.runtime.getURL(data[curPetName].jump.left);
+        eatRight1 = chrome.runtime.getURL(data[curPetName].eat.right1);
+        eatRight2 = chrome.runtime.getURL(data[curPetName].eat.right2);
+        eatRight3 = chrome.runtime.getURL(data[curPetName].eat.right3);
+        eatLeft1 = chrome.runtime.getURL(data[curPetName].eat.left1);
+        eatLeft2 = chrome.runtime.getURL(data[curPetName].eat.left2);
+        eatLeft3 = chrome.runtime.getURL(data[curPetName].eat.left3);
+    })
 
     var pet = $("<div class='pet'></div>");
 
     var noControllingPet = true;
     //var curPetName = "Ava"; // pet name can be changed
-    petImgConfigJSON_URL = chrome.runtime.getURL("pet-img-config.json");
 
     var animating = false;
 
@@ -24,10 +59,10 @@ $(document).ready(function readyHandler() {
     // initialize pet
     $("body").parent().append(pet);
     $.getJSON(petImgConfigJSON_URL, function (data) {
-        petImgURL = chrome.runtime.getURL(data[curPetName].stand.right);
+        petImgURL = standRight;
         $('.pet img').remove(); 
         $('.pet').prepend($('<img>', { id: "pet-img", src: petImgURL }));
-
+        idleActivate = false;
         document.body.style.cursor = 'url('+chrome.runtime.getURL(data[curPetName].point)+'), default'
         $('.pet').css('cursor', 'url('+chrome.runtime.getURL(data[curPetName].move)+'), auto');
     })
@@ -47,29 +82,144 @@ $(document).ready(function readyHandler() {
     var containy1 = window.scrollY
     var containy2 = window.scrollY + window.screen.availHeight- 220
 
-    
-    // Idle()
-    
-    // //wink
-    // //还不知道为什么会报错，但至少可以运行  //现在不报错了？？
-    // function Idle() {
-    //     setTimeout(function(){
-    //         $.getJSON(petImgConfigJSON_URL, function (data) {
-    //             petImgURL_beforeWink = petImgURL;
-    //             if (petImgURL_beforeWink == chrome.runtime.getURL(data[curPetName].stand.right)) {
-    //                 petImgURL = chrome.runtime.getURL(data[curPetName].drag.right);
-    //             } else if (petImgURL_beforeWink == chrome.runtime.getURL(data[curPetName].stand.left)) {
-    //                 petImgURL = chrome.runtime.getURL(data[curPetName].drag.left);
-    //             }
-    //             $("#pet-img").attr("src", petImgURL);
-    //             petImgURL = petImgURL_beforeWink;
-    //             setTimeout(function () {
-    //                 $("#pet-img").attr("src", petImgURL);
-    //             }, 170)
-    //         })
-    //         Idle();
-    //     }, 3000 + Math.random()*5000);
-    //   }
+    var inputTarget = null;
+    var finishEating = false;
+    var idleActivate = false;
+
+
+    Idle()
+    function Idle() {
+        if(idleActivate == false) {
+            return;
+        }
+        if(animating == false) {
+            animating = true;
+            if(inputTarget != null && inputTarget.value != "") {
+                setTimeout(function(){
+                    console.log(inputTarget.value)
+                    petImgURL_beforeEat = petImgURL
+                    if (petImgURL_beforeEat == standRight) {
+                        petImgURL = eatRight1;
+                    } else if (petImgURL_beforeEat == standLeft) {
+                        petImgURL = eatLeft1;
+                    }
+                    $("#pet-img").attr("src", petImgURL);
+
+                    eatInputValue(inputTarget)
+
+                    petImgURL = petImgURL_beforeEat;
+                    setTimeout(function () {
+                        $("#pet-img").attr("src", petImgURL);
+                    }, 200)
+
+                    if(inputTarget.value == "") {
+                        finishEating = true;
+                    }
+
+                    Idle();
+                }, 1000 + Math.random()*1000);
+            } else {
+                if(finishEating == true) {
+                    setTimeout(function(){
+                        finishEating = false;
+                        petImgURL_beforeJump = petImgURL;
+                        if (petImgURL_beforeJump == standRight) {
+                            petImgURL = jumpRight;
+                            $("#pet-img").attr("src", petImgURL);
+                            $(".pet").animate({top: "-=50px"}, 300);
+                            $(".pet").animate({top: "+=50px"}, 200);
+                        } else if (petImgURL_beforeJump == standLeft) {
+                            petImgURL = jumpLeft;
+                            $("#pet-img").attr("src", petImgURL);
+                            $(".pet").animate({top: "-=50px"}, 300);
+                            $(".pet").animate({top: "+=50px"}, 200);
+                        }
+                        petImgURL = petImgURL_beforeJump;
+                        setTimeout(function () {
+                            $("#pet-img").attr("src", petImgURL);
+                            animating = false;
+                        }, 500)
+                        Idle();
+                    }, 100);
+                } else {
+                    setTimeout(function(){
+                        petImgURL_beforeWink = petImgURL;
+                        if (petImgURL_beforeWink == standRight) {
+                            petImgURL = dragRight;
+                        } else if (petImgURL_beforeWink == standLeft) {
+                            petImgURL = dragLeft;
+                        }
+                        $("#pet-img").attr("src", petImgURL);
+                        petImgURL = petImgURL_beforeWink;
+                        setTimeout(function () {
+                            $("#pet-img").attr("src", petImgURL);
+                        }, 170)
+                        Idle();
+                    }, 3000 + Math.random()*5000);
+                }
+                
+            }
+            animating = false;
+        }
+    }
+
+    //eat
+    document.body.addEventListener('input', async event => {
+        inputTarget = event.target
+        console.log(inputTarget.value)
+        /*
+        petImgURL_beforeEat = petImgURL
+        if (animating == false && petImgURL_beforeEat == standRight) {
+            animating = true;
+            petImgURL = eatRight1;
+            $("#pet-img").attr("src", petImgURL);
+            petImgURL = eatRight2;
+            setTimeout(function () {
+                $("#pet-img").attr("src", petImgURL);
+            }, 2000)
+            petImgURL = eatRight3;
+            setTimeout(function () {
+                $("#pet-img").attr("src", petImgURL);
+            }, 2000)
+            petImgURL = petImgURL_beforeEat;
+            setTimeout(function () {
+                $("#pet-img").attr("src", petImgURL);
+            }, 2000)
+            //eatInputValue(event.target)
+            animating = false;
+        }
+        */
+    });
+
+    function eatInputValue(elem) {
+        // remember selection position
+        const start = elem.selectionStart, end = elem.selectionEnd;
+        elem.value = elem.value.slice(1);
+        // restore selection position
+        elem.setSelectionRange(Math.max(start - 1, 0), Math.max(end - 1, 0));
+    }
+
+
+
+/*
+    Eat()
+    function Eat() {
+        setTimeout(function(){
+            petImgURL_beforeWink = petImgURL;
+            if (petImgURL_beforeWink == standRight) {
+                petImgURL = dragRight;
+            } else if (petImgURL_beforeWink == standLeft) {
+                petImgURL = dragLeft;
+            }
+            $("#pet-img").attr("src", petImgURL);
+            petImgURL = petImgURL_beforeWink;
+            setTimeout(function () {
+                $("#pet-img").attr("src", petImgURL);
+            }, 170)
+            Wink();
+        }, 3000 + Math.random()*5000);
+    }
+*/
     
 
     $(window).scroll(function(){
@@ -81,50 +231,25 @@ $(document).ready(function readyHandler() {
         $(".pet").draggable( "option", "containment", set1 );
       });
     
-    
-    /*
-
-    var contextMenu = $("<div id='context-menu'> <div class='item'>Option 1</div> <div class='item'>Option 2</div></div>");
-
-
-    
-    //TodoList
-    $(".pet").on({
-        mouseenter: function () {
-            //ENTER
-            contextMenu.top = pet.offsetTop
-            contextMenu.left = pet.offsetLeft + 300
-            contextMenu.classList.add("visible");
-        },
-        mouseleave: function () {
-            //LEAVE
-        }
-    });
-    */
-    
-
-    
-
-
 
     // Drag pet around
     $(".pet").draggable({
         start: function () {
             $.getJSON(petImgConfigJSON_URL, function (data) {
                 petImgURL_beforeDrag = petImgURL;
-                if (petImgURL_beforeDrag == chrome.runtime.getURL(data[curPetName].stand.right)) {
-                    petImgURL = chrome.runtime.getURL(data[curPetName].drag.right);
-                } else if (petImgURL_beforeDrag == chrome.runtime.getURL(data[curPetName].stand.left)) {
-                    petImgURL = chrome.runtime.getURL(data[curPetName].drag.left);
+                if (petImgURL_beforeDrag == standRight) {
+                    petImgURL = dragRight;
+                } else if (petImgURL_beforeDrag == standLeft) {
+                    petImgURL = dragLeft;
                 }
                 $("#pet-img").attr("src", petImgURL);
-            })
+            }, () => chrome.runtime.lastError)
         },
         stop: function () {
             $.getJSON(petImgConfigJSON_URL, function (data) {
                 petImgURL = petImgURL_beforeDrag;
                 $("#pet-img").attr("src", petImgURL);
-            })
+            }, () => chrome.runtime.lastError)
             containx1 = window.scrollX
             containx2 = window.scrollX + window.screen.availWidth - 128
             containy1 = window.scrollY
@@ -133,7 +258,7 @@ $(document).ready(function readyHandler() {
             $(".pet").draggable( "option", "containment", set2 );
         },
         containment:[containx1, containy1 , containx2, containy2]
-    });
+    }, () => chrome.runtime.lastError);
 
     var rightCount = true;
     var leftCount = true;
@@ -147,13 +272,13 @@ $(document).ready(function readyHandler() {
                 animating = true;
                 $.getJSON(petImgConfigJSON_URL, function (data) {
                     petImgURL_beforeJump = petImgURL;
-                    if (petImgURL_beforeJump == chrome.runtime.getURL(data[curPetName].stand.right)) {
-                        petImgURL = chrome.runtime.getURL(data[curPetName].jump.right);
+                    if (petImgURL_beforeJump == standRight) {
+                        petImgURL = jumpRight;
                         $("#pet-img").attr("src", petImgURL);
                         $(".pet").animate({top: "-=50px"}, 300);
                         $(".pet").animate({top: "+=50px"}, 200);
-                    } else if (petImgURL_beforeJump == chrome.runtime.getURL(data[curPetName].stand.left)) {
-                        petImgURL = chrome.runtime.getURL(data[curPetName].jump.left);
+                    } else if (petImgURL_beforeJump == standLeft) {
+                        petImgURL = jumpLeft;
                         $("#pet-img").attr("src", petImgURL);
                         $(".pet").animate({top: "-=50px"}, 300);
                         $(".pet").animate({top: "+=50px"}, 200);
@@ -167,12 +292,12 @@ $(document).ready(function readyHandler() {
             } else if (e.which == 39  && $(".pet").offset().left < window.screen.availWidth - 148) {  //right arrow
                 animating = true;
                 $.getJSON(petImgConfigJSON_URL, function (data) {
-                    petImgURL_afterWalk = chrome.runtime.getURL(data[curPetName].stand.right);
+                    petImgURL_afterWalk = standRight;
                     if (rightCount == true) {
-                        petImgURL = chrome.runtime.getURL(data[curPetName].walk.right1);
+                        petImgURL = walkRight1;
                         rightCount = false;
                     } else if (rightCount == false) {
-                        petImgURL = chrome.runtime.getURL(data[curPetName].walk.right2);
+                        petImgURL = walkRight2;
                         rightCount = true;
                     }
                     
@@ -196,12 +321,12 @@ $(document).ready(function readyHandler() {
                 animating = true;
                 //console.log($(".pet").offset())
                 $.getJSON(petImgConfigJSON_URL, function (data) {
-                    petImgURL_afterWalk = chrome.runtime.getURL(data[curPetName].stand.left);
+                    petImgURL_afterWalk = standLeft;
                     if (leftCount == true) {
-                        petImgURL = chrome.runtime.getURL(data[curPetName].walk.left1);
+                        petImgURL = walkLeft1;
                         leftCount = false;
                     } else if (leftCount == false) {
-                        petImgURL = chrome.runtime.getURL(data[curPetName].walk.left2);
+                        petImgURL = walkLeft2;
                         leftCount = true;
                     }
                     
@@ -220,9 +345,16 @@ $(document).ready(function readyHandler() {
                     }, 250)
                 })
 
+            } else if (e.which == 40) {
+                console.log(idleActivate)
+                if(idleActivate == false) {
+                    idleActivate = true;
+                    Idle()
+                } else {
+                    idleActivate = false;
+                }
             }
-        }
-        
+        }   
     });
 
-});
+}, () => chrome.runtime.lastError);
