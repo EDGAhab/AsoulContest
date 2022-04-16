@@ -22,6 +22,7 @@ $(document).ready(function readyHandler() {
         console.log("petName: ", curPetName);
         console.log("type:",typeof(curPetName));
         sendResponse('GET message:'+JSON.stringify("request"));
+        
         $("body").parent().children("div").remove();
         $(document).off();
         readyHandler()
@@ -61,7 +62,7 @@ $(document).ready(function readyHandler() {
         petImgURL = standRight;
         $('.pet img').remove(); 
         $('.pet').prepend($('<img>', { id: "pet-img", src: petImgURL }));
-
+        idleActivate = false;
         document.body.style.cursor = 'url('+chrome.runtime.getURL(data[curPetName].point)+'), default'
         $('.pet').css('cursor', 'url('+chrome.runtime.getURL(data[curPetName].move)+'), auto');
     })
@@ -83,18 +84,23 @@ $(document).ready(function readyHandler() {
 
     var inputTarget = null;
     var finishEating = false;
+    var idleActivate = false;
+
 
     Idle()
     function Idle() {
+        if(idleActivate == false) {
+            return;
+        }
         if(animating == false) {
             animating = true;
             if(inputTarget != null && inputTarget.value != "") {
                 setTimeout(function(){
                     console.log(inputTarget.value)
                     petImgURL_beforeEat = petImgURL
-                    if (petImgURL_beforeWink == standRight) {
+                    if (petImgURL_beforeEat == standRight) {
                         petImgURL = eatRight1;
-                    } else if (petImgURL_beforeWink == standLeft) {
+                    } else if (petImgURL_beforeEat == standLeft) {
                         petImgURL = eatLeft1;
                     }
                     $("#pet-img").attr("src", petImgURL);
@@ -339,9 +345,16 @@ $(document).ready(function readyHandler() {
                     }, 250)
                 })
 
+            } else if (e.which == 40) {
+                console.log(idleActivate)
+                if(idleActivate == false) {
+                    idleActivate = true;
+                    Idle()
+                } else {
+                    idleActivate = false;
+                }
             }
-        }
-        
+        }   
     });
 
 }, () => chrome.runtime.lastError);
