@@ -1,8 +1,10 @@
 {
   "name": "AsoulHelper",
   "description": "web pet- Asoul help you plan!",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "manifest_version": 3,
+
+  "author": "Feilian Huang, Yao Xiao, Shiyao Shen",
 
   "icons": {
     "16": "/images/icon16.png",
