@@ -19,8 +19,6 @@ var eatLeft3;
 $(document).ready(function readyHandler() {
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         curPetName=request.getName;
-        console.log("petName: ", curPetName);
-        console.log("type:",typeof(curPetName));
         sendResponse('GET message:'+JSON.stringify("request"));
         
         $("body").parent().children("div").remove();
@@ -50,11 +48,7 @@ $(document).ready(function readyHandler() {
 
     var pet = $("<div class='pet'></div>");
 
-    var noControllingPet = true;
-    //var curPetName = "Ava"; // pet name can be changed
-
     var animating = false;
-
 
     // initialize pet
     $("body").parent().append(pet);
@@ -96,7 +90,6 @@ $(document).ready(function readyHandler() {
             animating = true;
             if(inputTarget != null && inputTarget.value != "") {
                 setTimeout(function(){
-                    console.log(inputTarget.value)
                     petImgURL_beforeEat = petImgURL
                     if (petImgURL_beforeEat == standRight) {
                         petImgURL = eatRight1;
@@ -166,29 +159,6 @@ $(document).ready(function readyHandler() {
     //eat
     document.body.addEventListener('input', async event => {
         inputTarget = event.target
-        console.log(inputTarget.value)
-        /*
-        petImgURL_beforeEat = petImgURL
-        if (animating == false && petImgURL_beforeEat == standRight) {
-            animating = true;
-            petImgURL = eatRight1;
-            $("#pet-img").attr("src", petImgURL);
-            petImgURL = eatRight2;
-            setTimeout(function () {
-                $("#pet-img").attr("src", petImgURL);
-            }, 2000)
-            petImgURL = eatRight3;
-            setTimeout(function () {
-                $("#pet-img").attr("src", petImgURL);
-            }, 2000)
-            petImgURL = petImgURL_beforeEat;
-            setTimeout(function () {
-                $("#pet-img").attr("src", petImgURL);
-            }, 2000)
-            //eatInputValue(event.target)
-            animating = false;
-        }
-        */
     });
 
     function eatInputValue(elem) {
@@ -199,29 +169,6 @@ $(document).ready(function readyHandler() {
         elem.setSelectionRange(Math.max(start - 1, 0), Math.max(end - 1, 0));
     }
 
-
-
-/*
-    Eat()
-    function Eat() {
-        setTimeout(function(){
-            petImgURL_beforeWink = petImgURL;
-            if (petImgURL_beforeWink == standRight) {
-                petImgURL = dragRight;
-            } else if (petImgURL_beforeWink == standLeft) {
-                petImgURL = dragLeft;
-            }
-            $("#pet-img").attr("src", petImgURL);
-            petImgURL = petImgURL_beforeWink;
-            setTimeout(function () {
-                $("#pet-img").attr("src", petImgURL);
-            }, 170)
-            Wink();
-        }, 3000 + Math.random()*5000);
-    }
-*/
-    
-
     $(window).scroll(function(){
         containx1 = window.scrollX
         containx2 = window.scrollX + window.screen.availWidth - 128
@@ -230,7 +177,6 @@ $(document).ready(function readyHandler() {
         var set1 = [containx1, containy1 , containx2, containy2];
         $(".pet").draggable( "option", "containment", set1 );
       });
-    
 
     // Drag pet around
     $(".pet").draggable({
@@ -262,97 +208,97 @@ $(document).ready(function readyHandler() {
 
     var rightCount = true;
     var leftCount = true;
+    var specialAnimation = false;
 
 
     //Jump and Walk
     $(document).keydown(function(e){
         if(animating == false) {
-            //Up arrow
-            if(e.which == 38) {
+            if(e.which == 38) {  //Up arrow
                 animating = true;
-                $.getJSON(petImgConfigJSON_URL, function (data) {
-                    petImgURL_beforeJump = petImgURL;
-                    if (petImgURL_beforeJump == standRight) {
-                        petImgURL = jumpRight;
-                        $("#pet-img").attr("src", petImgURL);
-                        $(".pet").animate({top: "-=50px"}, 300);
-                        $(".pet").animate({top: "+=50px"}, 200);
-                    } else if (petImgURL_beforeJump == standLeft) {
-                        petImgURL = jumpLeft;
-                        $("#pet-img").attr("src", petImgURL);
-                        $(".pet").animate({top: "-=50px"}, 300);
-                        $(".pet").animate({top: "+=50px"}, 200);
-                    }
-                    petImgURL = petImgURL_beforeJump;
-                    setTimeout(function () {
-                        $("#pet-img").attr("src", petImgURL);
-                        animating = false;
-                    }, 500)
-                })
+                petImgURL_beforeJump = petImgURL;
+                if (petImgURL_beforeJump == standRight) {
+                    petImgURL = jumpRight;
+                    $("#pet-img").attr("src", petImgURL);
+                    $(".pet").animate({top: "-=50px"}, 300);
+                    $(".pet").animate({top: "+=50px"}, 200);
+                } else if (petImgURL_beforeJump == standLeft) {
+                    petImgURL = jumpLeft;
+                    $("#pet-img").attr("src", petImgURL);
+                    $(".pet").animate({top: "-=50px"}, 300);
+                    $(".pet").animate({top: "+=50px"}, 200);
+                }
+                petImgURL = petImgURL_beforeJump;
+                setTimeout(function () {
+                    $("#pet-img").attr("src", petImgURL);
+                    animating = false;
+                }, 500)
             } else if (e.which == 39  && $(".pet").offset().left < window.screen.availWidth - 148) {  //right arrow
                 animating = true;
-                $.getJSON(petImgConfigJSON_URL, function (data) {
-                    petImgURL_afterWalk = standRight;
-                    if (rightCount == true) {
-                        petImgURL = walkRight1;
-                        rightCount = false;
-                    } else if (rightCount == false) {
-                        petImgURL = walkRight2;
-                        rightCount = true;
-                    }
-                    
+                petImgURL_afterWalk = standRight;
+                if (rightCount == true) {
+                    petImgURL = walkRight1;
+                    rightCount = false;
+                } else if (rightCount == false) {
+                    petImgURL = walkRight2;
+                    rightCount = true;
+                }
+                $("#pet-img").attr("src", petImgURL);
+                if(curPetName == "Carol" || curPetName == "Bella" ) {
+                    $(".pet").animate({left: "+=10px"}, 130);
+                    $(".pet").animate({left: "+=10px"}, 120);
+                } else {
+                    $(".pet").animate({left: "+=10px", top: "-=10px"}, 130);
+                    $(".pet").animate({left: "+=10px", top: "+=10px"}, 120);
+                }
+                petImgURL = petImgURL_afterWalk;
+                setTimeout(function () {
                     $("#pet-img").attr("src", petImgURL);
-                    if(curPetName == "Carol" || curPetName == "Bella" ) {
-                        $(".pet").animate({left: "+=10px"}, 130);
-                        $(".pet").animate({left: "+=10px"}, 120);
-                    } else {
-                        $(".pet").animate({left: "+=10px", top: "-=10px"}, 130);
-                        $(".pet").animate({left: "+=10px", top: "+=10px"}, 120);
-                    }
-                    
-                    petImgURL = petImgURL_afterWalk;
-                    setTimeout(function () {
-                        $("#pet-img").attr("src", petImgURL);
-                        animating = false;
-                    }, 250)
-                })
-
+                    animating = false;
+                }, 250)
             } else if (e.which == 37 && $(".pet").offset().left > 20) {  //left arrow
                 animating = true;
-                //console.log($(".pet").offset())
-                $.getJSON(petImgConfigJSON_URL, function (data) {
-                    petImgURL_afterWalk = standLeft;
-                    if (leftCount == true) {
-                        petImgURL = walkLeft1;
-                        leftCount = false;
-                    } else if (leftCount == false) {
-                        petImgURL = walkLeft2;
-                        leftCount = true;
-                    }
-                    
+                petImgURL_afterWalk = standLeft;
+                if (leftCount == true) {
+                    petImgURL = walkLeft1;
+                    leftCount = false;
+                } else if (leftCount == false) {
+                    petImgURL = walkLeft2;
+                    leftCount = true;
+                }
+                $("#pet-img").attr("src", petImgURL);
+                if(curPetName == "Carol" || curPetName == "Bella" ) {
+                    $(".pet").animate({left: "-=10px"}, 130);
+                    $(".pet").animate({left: "-=10px"}, 120);
+                } else {
+                    $(".pet").animate({left: "-=10px", top: "-=10px"}, 130);
+                    $(".pet").animate({left: "-=10px", top: "+=10px"}, 120);
+                }
+                petImgURL = petImgURL_afterWalk;
+                setTimeout(function () {
                     $("#pet-img").attr("src", petImgURL);
-                    if(curPetName == "Carol" || curPetName == "Bella" ) {
-                        $(".pet").animate({left: "-=10px"}, 130);
-                        $(".pet").animate({left: "-=10px"}, 120);
-                    } else {
-                        $(".pet").animate({left: "-=10px", top: "-=10px"}, 130);
-                        $(".pet").animate({left: "-=10px", top: "+=10px"}, 120);
-                    }
-                    petImgURL = petImgURL_afterWalk;
-                    setTimeout(function () {
-                        $("#pet-img").attr("src", petImgURL);
-                        animating = false;
-                    }, 250)
-                })
-
-            } else if (e.which == 40) {
-                console.log(idleActivate)
+                    animating = false;
+                }, 250)
+            } else if (e.which == 40 && specialAnimation == false) {  //down arrow
+                specialAnimation = true;
+                petImgURL_beforeDrag = petImgURL;
+                if (petImgURL_beforeDrag == standRight) {
+                    petImgURL = dragRight;
+                } else if (petImgURL_beforeDrag == standLeft) {
+                    petImgURL = dragLeft;
+                }
+                $("#pet-img").attr("src", petImgURL);
+                petImgURL = petImgURL_beforeDrag;
+                setTimeout(function () {
+                    $("#pet-img").attr("src", petImgURL);
+                }, 170)
                 if(idleActivate == false) {
                     idleActivate = true;
                     Idle()
                 } else {
                     idleActivate = false;
                 }
+                specialAnimation = false;
             }
         }   
     });
