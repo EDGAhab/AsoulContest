@@ -13,7 +13,7 @@
 
 # 安装方式：
 官方渠道：
-1. Chrome Web Store: https://chrome.google.com/webstore/detail/asoulhelper/kddfbpjodhihclbdiaimhbifnhhbofkl?hl=zh-CN&authuser=0
-2. Microsoft Addons: 正在审核中
+1. 谷歌浏览器: https://chrome.google.com/webstore/detail/asoulhelper/kddfbpjodhihclbdiaimhbifnhhbofkl?hl=zh-CN&authuser=0
+2. 微软Edge浏览器: https://microsoftedge.microsoft.com/addons/detail/asoul-browser-pet/appgigpankommfpklgdadngieoaocldh
 
 通过Github安装包安装：https://jingyan.baidu.com/article/3065b3b6cc6cf6ffcef8a444.html
