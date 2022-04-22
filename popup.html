@@ -1,51 +1,32 @@
 <!DOCTYPE html>
 <html>
-<meta http-equiv="Content-Security-Policy"
-  content="script-src 'self' 'unsafe-inline' https://apis.google.com/js/platform.js">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <head>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
 
-
-<head>
-  <link rel="stylesheet" href="styles.css">
-
-</head>
-
-<body>
-
-  <section id="block">
-    <form id="my-form">
-      <input type="image" id="pet-change1" src="/images/AvaPet128.png" height="30" width="30">
-      <input type="image" id="pet-change2" src="/images/BellaPet128.png" height="30" width="30">
-      <input type="image" id="pet-change3" src="/images/CarolPet128.png" height="30" width="30">
-      <input type="image" id="pet-change4" src="/images/DianaPet128.png" height="30" width="30">
-      <input type="image" id="pet-change5" src="/images/EileenPet128.png" height="30" width="30">
-
-      <div class="msg">
-          <div>
+    <section id = "block">
+      <form id="my-form">
+          <input  type="image" id="pet-change1" src="/images/AvaPet128.png" height="30" width="30" onClick="onChange1">
+          <input  type="image" id="pet-change2" src="/images/BellaPet128.png" height="30" width="30" onClick="onChang2"> 
+          <input  type="image" id="pet-change3" src="/images/CarolPet128.png" height="30" width="30" onClick="onChange3"> 
+          <input  type="image" id="pet-change4" src="/images/DianaPet128.png" height="30" width="30" onClick="onChange4"> 
+          <input  type="image" id="pet-change5" src="/images/EileenPet128.png" height="30" width="30" onClick="onChange5">     
+        
+          <div class="msg">
             <h3 id="pet-name">向晚</h3>
-            <img height="100" style="background-position:left" src="/images/AvaPet128.png" />
+            <p>
+            <img height="100" style="max-width: 120px;background-position: top left;" src="/images/AvaPet128.png" />
+            </p>
           </div>
-          <div class="row">
-            <div class="column"> 
-              <h1 style="color: red;"> ♥️ </h1> 
-            </div>
-            <div class="column">
-              <div class="progress-container">
-                <progress  id="love-progress" value="10" max="100"></progress>
-              </div>
-            </div>
-          </div>
- 
-      </div>
-      
 
-      <input class="btn" type="submit" id="pet-submit" value="更换宠物">
+          <input class="btn" type="submit" id="pet-submit" value="更换宠物" > 
+          
 
+      </form>
+    </section>
 
-    </form>
-  </section>
-  <script src="popup.js"></script>
-
-</body>
-
+    <script src="./popup.js"></script>
+  </body>
 </html>

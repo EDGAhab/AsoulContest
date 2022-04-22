@@ -19,16 +19,11 @@ var petName = "Ava";
 
 
 
-function newMsg(chineseName, image, love){
-    let newContent="";
-    newContent+=
-        `<div>`+
-        `<h3 id="pet-name"> ${chineseName} </h3>` +
-        `<img height="100" style="background-position:left" src=${image} />`+`</div>`+
-        `</div> <div class="row"> <div class="column"> <h1 style="color: red;"> ♥️ </h1> `+
-        `</div> <div class="column"> <div class="progress-container">`+ 
-        `<progress  id="love-progress" value=${love} max="100"></progress>`+
-        `</div></div></div>`;
+function newMsg(chineseName, image){
+    var newContent = `<h3 id="pet-name"> ${chineseName} </h3>` +
+                    `<p>`+
+                    `<img height="100" style="max-width: 120px;background-position: top left;" src=${image} />`+
+                    `</p>`;
     return newContent;
 }
 
@@ -37,8 +32,7 @@ function onChange1(e) {
     petName = "Ava";
     chineseName = "向晚";
     let image = "/images/" + petName + "Pet128.png";
-    let love = 10;
-    let newContent = newMsg(chineseName,image,love);
+    let newContent = newMsg(chineseName,image);
     msg.innerHTML = newContent;
 }
 
@@ -48,8 +42,7 @@ function onChange2(e) {
     petName = "Bella";
     chineseName = "贝拉";
     let image = "/images/" + petName + "Pet128.png";
-    let love = 10;
-    let newContent = newMsg(chineseName,image,love);
+    let newContent = newMsg(chineseName,image);
     msg.innerHTML = newContent;
 }
 
@@ -59,8 +52,7 @@ function onChange3(e) {
     petName = "Carol";
     chineseName = "珈乐";
     let image = "/images/" + petName + "Pet128.png";
-    let love = 10;
-    let newContent = newMsg(chineseName,image,love);
+    let newContent = newMsg(chineseName,image);
     msg.innerHTML = newContent;                
 }
 
@@ -70,8 +62,7 @@ function onChange4(e) {
     petName = "Diana";
     chineseName = "嘉然";
     let image = "/images/" + petName + "Pet128.png";
-    let love = 10;
-    let newContent = newMsg(chineseName,image,love);
+    let newContent = newMsg(chineseName,image);
     msg.innerHTML = newContent;
 }
 
@@ -81,8 +72,7 @@ function onChange5(e) {
     petName = "Eileen";
     chineseName = "乃琳";
     let image = "/images/" + petName + "Pet128.png";
-    let love = 10;
-    let newContent = newMsg(chineseName,image,love);
+    let newContent = newMsg(chineseName,image);
     msg.innerHTML = newContent;
 }
 
