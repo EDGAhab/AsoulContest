@@ -16,6 +16,19 @@ var eatLeft1;
 var eatLeft2;
 var eatLeft3;
 
+
+
+var BathBool = false;
+var d = new Date().getHours(); 
+
+$(document).ready(function getCurrentTime() { //get current time 
+    if(d==21){
+        BathBool=true;
+    }
+    //A= new Date($.now());
+    //console.log(d); 
+});
+
 $(document).ready(function readyHandler() {
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         curPetName=request.getName;
@@ -81,6 +94,8 @@ $(document).ready(function readyHandler() {
     var idleActivate = false;
 
 
+
+
     Idle()
     function Idle() {
         if(idleActivate == false) {
@@ -134,7 +149,28 @@ $(document).ready(function readyHandler() {
                         }, 500)
                         Idle();
                     }, 100);
-                } else {
+            } else {
+                if(BathBool == true){
+                    setTimeout(function(){
+                        petImgURL_beforeBath = petImgURL
+                        if (petImgURL_beforeBath == standRight) {
+                            petImgURL = eatRight1;
+                        } else if (petImgURL_beforeBath == standLeft) {
+                            petImgURL = eatLeft1;
+                        }
+                        $("#pet-img").attr("src", petImgURL);
+                        petImgURL = petImgURL_beforeEat;
+    
+                        if(inputTarget.value == "") {
+                            BathBool = true;
+                        }
+                        if(d!=21){
+                            BathBool = false; //end Bathing
+                        }
+    
+                    Idle();
+                }, 100); 
+            } else { 
                     setTimeout(function(){
                         petImgURL_beforeWink = petImgURL;
                         if (petImgURL_beforeWink == standRight) {
@@ -302,5 +338,5 @@ $(document).ready(function readyHandler() {
             }
         }   
     });
-
+    }//
 }, () => chrome.runtime.lastError);

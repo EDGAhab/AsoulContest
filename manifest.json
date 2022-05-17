@@ -40,7 +40,7 @@
     }
   ],
 
-  "web_accessible_resources": [
+   "web_accessible_resources": [
     {
       "matches": ["<all_urls>"],
       "resources": ["images/*", "cursors/*", "pet-img-config.json"]
