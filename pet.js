@@ -44,6 +44,8 @@ $(document).ready(function readyHandler() {
         eatLeft1 = chrome.runtime.getURL(data[curPetName].eat.left1);
         eatLeft2 = chrome.runtime.getURL(data[curPetName].eat.left2);
         eatLeft3 = chrome.runtime.getURL(data[curPetName].eat.left3);
+        BathRight = chrome.runtime.getURL(data[curPetName].bath.Right);//Awaiting for pics
+        BathLeft = chrome.runtime.getURL(data[curPetName].bath.left);
     })
 
     var pet = $("<div class='pet'></div>");
@@ -199,7 +201,11 @@ $(document).ready(function readyHandler() {
                 } else if (petImgURL_beforeBath == bathLeft) {
                     //petImgURL = standLeft;
                 }
+<<<<<<< Updated upstream
                 $("#pet-img").attr("src", petImgURL);
+=======
+            //Idle(); 
+>>>>>>> Stashed changes
             });
         }
     }
