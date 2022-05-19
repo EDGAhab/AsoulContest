@@ -160,46 +160,54 @@ $(document).ready(function readyHandler() {
     var BathBool = false;
     var d = new Date().getHours(); 
 
-    $(document).ready(function getCurrentTime() { //get current time 
+    function getCurrentTime() { //get current time 
         if(d==21){
             BathBool=true;
-            BathBegin;
+            BathBegin();
+        } else {
+            if(BathBool == true) {
+                BathEnd();
+                BathBool == false;
+            }
         }
             //A= new Date($.now());
             //console.log(d); 
-    }); 
+    }
 
-    //eat
-    document.body.addEventListener('input', async event => {
-        inputTarget = event.target
-    });
-    
     function BathBegin() {
         if(BathBool == true){
             setTimeout(function(){
                 petImgURL_beforeBath = petImgURL
                 if (petImgURL_beforeBath == standRight) {
-                    //petImgURL = BathRight1;
+                    //petImgURL = BathRight;
                 } else if (petImgURL_beforeBath == standLeft) {
-                    //petImgURL = BathLeft1;
+                    //petImgURL = BathLeft;
                     //洗澡动作复杂一点，用gif是不是会好一些
+                    //我去问问画师，但我估计他嫌简单就直接给我几张图了
                 }
                 $("#pet-img").attr("src", petImgURL);
-                petImgURL = petImgURL_beforeEat;
-                //上面这两行没看懂，没动
-    
-                if(inputTarget.value == "") {
-                    BathBool = true;
-                }
-                //上面这个if也没看懂
-                if(d!=21){
-                    BathBool = false; //end Bathing
-                }
-    
-            Idle(); 
             });
         }
     }
+
+    function BathEnd() {
+        if(BathBool == true){
+            setTimeout(function(){
+                petImgURL_beforeBathEnd = petImgURL
+                if (petImgURL_beforeBath == bathRight) {
+                    //petImgURL = standRight;
+                } else if (petImgURL_beforeBath == bathLeft) {
+                    //petImgURL = standLeft;
+                }
+                $("#pet-img").attr("src", petImgURL);
+            });
+        }
+    }
+
+    //eat
+    document.body.addEventListener('input', async event => {
+        inputTarget = event.target
+    });
 
     function eatInputValue(elem) {
         // remember selection position
