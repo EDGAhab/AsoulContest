@@ -29,6 +29,10 @@
             "right1": "images/AvaEatR1.png",
             "right2": "images/AvaEatR2.png",
             "right3": "images/AvaEatR3.png"
+        },
+        "bath": { 
+            "left": "images/DianaBathTest1.png",
+            "right": "images/DianaBathTest2.png"
         }
     },
     "Bella": {
@@ -93,6 +97,10 @@
             "right1": "images/CarolEatR1.png",
             "right2": "images/CarolEatR2.png",
             "right3": "images/CarolEatR3.png"
+        },
+        "bath": { 
+            "left": "images/CarolBathL.png",
+            "right": "images/CarolBathR.png"
         }
     },
     "Diana": {
@@ -125,6 +133,10 @@
             "right1": "images/DianaEatR1.png",
             "right2": "images/DianaEatR2.png",
             "right3": "images/DianaEatR3.png"
+        },
+        "bath": { 
+            "left": "images/DianaBathL.png",
+            "right": "images/DianaBathR.png"
         }
     },
     "Eileen": {
@@ -157,6 +169,10 @@
             "right1": "images/EileenEatR1.png",
             "right2": "images/EileenEatR2.png",
             "right3": "images/EileenEatR3.png"
+        },
+        "bath": { 
+            "left": "images/EileenBathL.png",
+            "right": "images/EileenBathR.png"
         }
     }
 }
