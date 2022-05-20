@@ -44,7 +44,7 @@ $(document).ready(function readyHandler() {
         eatLeft1 = chrome.runtime.getURL(data[curPetName].eat.left1);
         eatLeft2 = chrome.runtime.getURL(data[curPetName].eat.left2);
         eatLeft3 = chrome.runtime.getURL(data[curPetName].eat.left3);
-        BathRight = chrome.runtime.getURL(data[curPetName].bath.Right);//Awaiting for pics
+        BathRight = chrome.runtime.getURL(data[curPetName].bath.right);//Awaiting for pics
         BathLeft = chrome.runtime.getURL(data[curPetName].bath.left);
     })
 
@@ -160,53 +160,47 @@ $(document).ready(function readyHandler() {
 
 
     var BathBool = false;
-    var d = new Date().getHours(); 
-
-    function getCurrentTime() { //get current time 
+    var d = new Date().getHours();
+    getCurrentTime()
+    function getCurrentTime() { //get current time  
+        d = new Date().getHours();
+        //console.log(d)
         if(d==21){
-            BathBool=true;
             BathBegin();
+            BathBool=true;
         } else {
             if(BathBool == true) {
                 BathEnd();
                 BathBool == false;
             }
         }
-            //A= new Date($.now());
-            //console.log(d); 
     }
 
     function BathBegin() {
-        if(BathBool == true){
-            setTimeout(function(){
+        if(BathBool == false){
+            $.getJSON(petImgConfigJSON_URL, function (data) {
                 petImgURL_beforeBath = petImgURL
                 if (petImgURL_beforeBath == standRight) {
-                    //petImgURL = BathRight;
+                    petImgURL = BathRight;
                 } else if (petImgURL_beforeBath == standLeft) {
-                    //petImgURL = BathLeft;
-                    //洗澡动作复杂一点，用gif是不是会好一些
-                    //我去问问画师，但我估计他嫌简单就直接给我几张图了
+                    petImgURL = BathLeft;
                 }
                 $("#pet-img").attr("src", petImgURL);
-            });
+            }, () => chrome.runtime.lastError)
         }
     }
 
     function BathEnd() {
         if(BathBool == true){
-            setTimeout(function(){
+            $.getJSON(petImgConfigJSON_URL, function (data) {
                 petImgURL_beforeBathEnd = petImgURL
                 if (petImgURL_beforeBath == bathRight) {
-                    //petImgURL = standRight;
+                    petImgURL = standRight;
                 } else if (petImgURL_beforeBath == bathLeft) {
-                    //petImgURL = standLeft;
+                    petImgURL = standLeft;
                 }
-<<<<<<< Updated upstream
                 $("#pet-img").attr("src", petImgURL);
-=======
-            //Idle(); 
->>>>>>> Stashed changes
-            });
+            }, () => chrome.runtime.lastError)
         }
     }
 
