@@ -17,14 +17,37 @@ var eatLeft2;
 var eatLeft3;
 
 $(document).ready(function readyHandler() {
+    nameSet = false;
+    chrome.storage.sync.get(['name'], function(result) {
+        if (result == null) {
+
+        } else {
+            console.log('Value currently is ' + result.key);
+            curPetName = result.key;
+            nameSet = true;
+        }
+        
+    });
+
+    if(nameSet == false) {
+        chrome.storage.sync.set({name: curPetName}, function() {
+            console.log('Value is set to ' + curPetName);
+        });
+    }
+
+
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         curPetName=request.getName;
+        chrome.storage.sync.set({name: curPetName}, function() {
+            console.log('Value is set to ' + curPetName);
+        });
         sendResponse('GET message:'+JSON.stringify("request"));
         
         $("body").parent().children("div").remove();
         $(document).off();
         readyHandler()
     });
+
     petImgConfigJSON_URL = chrome.runtime.getURL("pet-img-config.json");
 
     $.getJSON(petImgConfigJSON_URL, function (data) {
