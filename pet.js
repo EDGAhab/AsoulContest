@@ -1,4 +1,4 @@
-var curPetName = "Ava";
+var curPetName;
 var standRight;
 var standLeft;
 var dragLeft;
@@ -17,14 +17,35 @@ var eatLeft2;
 var eatLeft3;
 
 $(document).ready(function readyHandler() {
+    
+    var nameSet = false;
+    chrome.storage.sync.get('thoname', function(result) {
+        console.log(result)
+        if (result.thoname == undefined) {
+            curPetName = 'Ava'
+            console.log('null, but set to Ava')
+        } else {
+            console.log('Value currently is ' + result.thoname);
+            curPetName = result.thoname;
+            nameSet = true;
+        }
+        
+    });
+
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         curPetName=request.getName;
+        
+        chrome.storage.sync.set({'thoname': curPetName}, function() {
+            console.log('Name is set to ' + curPetName);
+        });
+        
         sendResponse('GET message:'+JSON.stringify("request"));
         
         $("body").parent().children("div").remove();
         $(document).off();
         readyHandler()
     });
+
     petImgConfigJSON_URL = chrome.runtime.getURL("pet-img-config.json");
 
     $.getJSON(petImgConfigJSON_URL, function (data) {
