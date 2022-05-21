@@ -32,9 +32,6 @@ $(document).ready(function readyHandler() {
         
     });
 
-    
-
-
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         curPetName=request.getName;
         
