@@ -1,7 +1,4 @@
 var curPetName;
-chrome.storage.sync.set({'thaname': 'Ava'}, function() {
-    console.log('Name is set to Ava');
-});
 var standRight;
 var standLeft;
 var dragLeft;
@@ -22,14 +19,14 @@ var eatLeft3;
 $(document).ready(function readyHandler() {
     
     var nameSet = false;
-    chrome.storage.sync.get('thaname', function(result) {
+    chrome.storage.sync.get('thoname', function(result) {
         console.log(result)
-        if (result == null) {
+        if (result.thoname == undefined) {
             curPetName = 'Ava'
             console.log('null, but set to Ava')
         } else {
-            console.log('Value currently is ' + result.thaname);
-            curPetName = result.thaname;
+            console.log('Value currently is ' + result.thoname);
+            curPetName = result.thoname;
             nameSet = true;
         }
         
@@ -41,7 +38,7 @@ $(document).ready(function readyHandler() {
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         curPetName=request.getName;
         
-        chrome.storage.sync.set({'thaname': curPetName}, function() {
+        chrome.storage.sync.set({'thoname': curPetName}, function() {
             console.log('Name is set to ' + curPetName);
         });
         
