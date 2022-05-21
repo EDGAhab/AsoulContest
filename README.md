@@ -16,4 +16,7 @@
 1. 谷歌浏览器: https://chrome.google.com/webstore/detail/asoulhelper/kddfbpjodhihclbdiaimhbifnhhbofkl?hl=zh-CN&authuser=0
 2. 微软Edge浏览器: https://microsoftedge.microsoft.com/addons/detail/asoul-browser-pet/appgigpankommfpklgdadngieoaocldh
 
-通过Github安装包安装：https://jingyan.baidu.com/article/3065b3b6cc6cf6ffcef8a444.html
+通过Github安装包安装：https://www.bilibili.com/read/cv16469847?spm_id_from=333.999.0.0
+
+# Demo视频：
+https://www.bilibili.com/video/BV1744y1u7ym?spm_id_from=333.999.0.0
