@@ -18,5 +18,5 @@
 
 通过Github安装包安装：https://www.bilibili.com/read/cv16469847?spm_id_from=333.999.0.0
 
-# Demo视频：
+# 演示视频：
 https://www.bilibili.com/video/BV1744y1u7ym?spm_id_from=333.999.0.0
