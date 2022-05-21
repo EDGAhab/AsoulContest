@@ -1,7 +1,0 @@
-.pet {
-  left: 100px;
-  top: 400px;
-  z-index: 9999;
-  position: fixed;
-  touch-action: none;
-}
