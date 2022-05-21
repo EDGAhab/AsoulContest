@@ -1,4 +1,6 @@
 var curPetName;
+var posLeft;
+var posTop;
 var standRight;
 var standLeft;
 var dragLeft;
@@ -16,9 +18,33 @@ var eatLeft1;
 var eatLeft2;
 var eatLeft3;
 
-$(document).ready(function readyHandler() {
+//set and get positionLeft
+chrome.storage.sync.get('positionLeft', function(result) {
+    console.log(result)
+    if (result.positionLeft == undefined) {
+        posLeft = '100px'
+        console.log('null, but set to 100, 400' + posLeft)
+    } else {
+        posLeft = result.positionLeft;
+        console.log('LeftValue currently is ' + result.positionLeft);
+    }
     
-    var nameSet = false;
+});
+
+//set and get positionTop
+chrome.storage.sync.get('positionTop', function(result) {
+    console.log(result)
+    if (result.positionTop == undefined) {
+        posTop = '400px'
+        console.log('null, but set to 100, 400')
+    } else {
+        posTop = result.positionTop;
+        console.log('TopValue currently is ' + result.positionTop);
+    }  
+});
+
+$(document).ready(function readyHandler() {
+    //set and get name
     chrome.storage.sync.get('thoname', function(result) {
         console.log(result)
         if (result.thoname == undefined) {
@@ -27,10 +53,9 @@ $(document).ready(function readyHandler() {
         } else {
             console.log('Value currently is ' + result.thoname);
             curPetName = result.thoname;
-            nameSet = true;
-        }
-        
+        }     
     });
+
 
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         curPetName=request.getName;
@@ -45,6 +70,9 @@ $(document).ready(function readyHandler() {
         $(document).off();
         readyHandler()
     });
+
+    
+
 
     petImgConfigJSON_URL = chrome.runtime.getURL("pet-img-config.json");
 
@@ -82,15 +110,17 @@ $(document).ready(function readyHandler() {
         $('.pet').css('cursor', 'url('+chrome.runtime.getURL(data[curPetName].move)+'), auto');
     })
 
-    /*
+    
     $(".pet").css({
-        "left": "100px",
-        "top": "400px",
+        //"left": "100px",
+        //"top": "400px",
         "z-index": "9999",
         "position": "fixed",
         "touch-action": "none"
     });
-    */
+    $(".pet").css("left", posLeft);
+    $(".pet").css("top", posTop);
+    
 
     var containx1 = window.scrollX
     var containx2 = window.scrollX + window.screen.availWidth - 128
@@ -223,6 +253,8 @@ $(document).ready(function readyHandler() {
             containy2 = window.scrollY + window.screen.availHeight- 220
             var set2 = [containx1, containy1 , containx2, containy2];
             $(".pet").draggable( "option", "containment", set2 );
+
+            setThePosition()
         },
         containment:[containx1, containy1 , containx2, containy2]
     }, () => chrome.runtime.lastError);
@@ -230,6 +262,26 @@ $(document).ready(function readyHandler() {
     var rightCount = true;
     var leftCount = true;
     var specialAnimation = false;
+
+    function setThePosition() {
+        posLeft = $(".pet").offset().left
+        posTop = $(".pet").offset().top
+        
+        if (posTop > window.screen.availHeight) {
+            posTop = window.screen.availHeight- 220
+        }
+        console.log(window.screen.availWidth)
+        if (posLeft > window.screen.availWidth) {
+            posLeft = window.screen.availWidth - 128
+        }    
+
+        chrome.storage.sync.set({'positionLeft': posLeft}, function() {
+            console.log('posLeft is set to ' + posLeft);
+        });
+        chrome.storage.sync.set({'positionTop': posTop}, function() {
+            console.log('posTop is set to ' + posTop);
+        });
+    }
 
 
     //Jump and Walk
@@ -321,7 +373,8 @@ $(document).ready(function readyHandler() {
                 }
                 specialAnimation = false;
             }
-        }   
+        }
+        setThePosition()
     });
 
 }, () => chrome.runtime.lastError);
