@@ -25,3 +25,4 @@ https://www.bilibili.com/video/BV1744y1u7ym?spm_id_from=333.999.0.0
 字节跳动x稀土掘金 2022编程挑战赛 **第二名**以及**最佳人气奖**   
 颁奖公告：https://forum.juejin.cn/hackathon/post/7102977144921260069?from=1
 （我们是“贝拉小姐说得都队”）
+参赛经历分享：https://forum.juejin.cn/hackathon/post/7104003197009657887?from=1
