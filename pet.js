@@ -166,7 +166,6 @@ $(document).ready(function readyHandler() {
         //console.log(d)
         if(d==21){
             BathBegin();
-            BathBool=true;
         } else {
             if(BathBool == true) {
                 BathEnd();
@@ -175,31 +174,25 @@ $(document).ready(function readyHandler() {
         }
     }
 
+
     function BathBegin() {
         if(BathBool == false){
+            BathBool=true;
             $.getJSON(petImgConfigJSON_URL, function (data) {
-                petImgURL_beforeBath = petImgURL
-                if (petImgURL_beforeBath == standRight) {
-                    petImgURL = BathRight;
-                } else if (petImgURL_beforeBath == standLeft) {
-                    petImgURL = BathLeft;
-                }
+                //petImgURL_beforeBath = petImgURL
+                petImgURL = bathing;
                 $("#pet-img").attr("src", petImgURL);
-            }, () => chrome.runtime.lastError)
+            })
         }
     }
 
     function BathEnd() {
         if(BathBool == true){
+            BathBool = false
             $.getJSON(petImgConfigJSON_URL, function (data) {
-                petImgURL_beforeBathEnd = petImgURL
-                if (petImgURL_beforeBath == bathRight) {
-                    petImgURL = standRight;
-                } else if (petImgURL_beforeBath == bathLeft) {
-                    petImgURL = standLeft;
-                }
+                //petImgURL_beforeBathEnd = petImgURL
                 $("#pet-img").attr("src", petImgURL);
-            }, () => chrome.runtime.lastError)
+            })
         }
     }
 
@@ -261,9 +254,6 @@ $(document).ready(function readyHandler() {
     //Jump and Walk
     $(document).keydown(function(e){
         if(animating == false) {
-            if (bathBool == True){
-                BathEnd()
-            }
             if(e.which == 38) {  //Up arrow
                 animating = true;
                 petImgURL_beforeJump = petImgURL;
@@ -285,6 +275,9 @@ $(document).ready(function readyHandler() {
                 }, 500)
             } else if (e.which == 39  && $(".pet").offset().left < window.screen.availWidth - 148) {  //right arrow
                 animating = true;
+                if (BathBool == true){
+                    BathEnd()
+                }
                 petImgURL_afterWalk = standRight;
                 if (rightCount == true) {
                     petImgURL = walkRight1;
@@ -307,6 +300,9 @@ $(document).ready(function readyHandler() {
                     animating = false;
                 }, 250)
             } else if (e.which == 37 && $(".pet").offset().left > 20) {  //left arrow
+                if (BathBool == true){
+                    BathEnd()
+                }
                 animating = true;
                 petImgURL_afterWalk = standLeft;
                 if (leftCount == true) {
