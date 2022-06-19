@@ -44,8 +44,7 @@ $(document).ready(function readyHandler() {
         eatLeft1 = chrome.runtime.getURL(data[curPetName].eat.left1);
         eatLeft2 = chrome.runtime.getURL(data[curPetName].eat.left2);
         eatLeft3 = chrome.runtime.getURL(data[curPetName].eat.left3);
-        BathRight = chrome.runtime.getURL(data[curPetName].bath.right);//Awaiting for pics
-        BathLeft = chrome.runtime.getURL(data[curPetName].bath.left);
+        bathing = chrome.runtime.getURL(data[curPetName].bath);
     })
 
     var pet = $("<div class='pet'></div>");
@@ -262,6 +261,9 @@ $(document).ready(function readyHandler() {
     //Jump and Walk
     $(document).keydown(function(e){
         if(animating == false) {
+            if (bathBool == True){
+                BathEnd()
+            }
             if(e.which == 38) {  //Up arrow
                 animating = true;
                 petImgURL_beforeJump = petImgURL;
