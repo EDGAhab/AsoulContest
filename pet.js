@@ -93,6 +93,7 @@ $(document).ready(function readyHandler() {
         eatLeft1 = chrome.runtime.getURL(data[curPetName].eat.left1);
         eatLeft2 = chrome.runtime.getURL(data[curPetName].eat.left2);
         eatLeft3 = chrome.runtime.getURL(data[curPetName].eat.left3);
+        bathing = chrome.runtime.getURL(data[curPetName].bath);
     })
 
     var pet = $("<div class='pet'></div>");
@@ -207,6 +208,45 @@ $(document).ready(function readyHandler() {
         }
     }
 
+
+    var BathBool = false;
+    var d = new Date().getHours();
+    getCurrentTime()
+    function getCurrentTime() { //get current time  
+        d = new Date().getHours();
+        //console.log(d)
+        if(d==21){
+            BathBegin();
+        } else {
+            if(BathBool == true) {
+                BathEnd();
+                BathBool == false;
+            }
+        }
+    }
+
+
+    function BathBegin() {
+        if(BathBool == false){
+            BathBool=true;
+            $.getJSON(petImgConfigJSON_URL, function (data) {
+                //petImgURL_beforeBath = petImgURL
+                petImgURL = bathing;
+                $("#pet-img").attr("src", petImgURL);
+            })
+        }
+    }
+
+    function BathEnd() {
+        if(BathBool == true){
+            BathBool = false
+            $.getJSON(petImgConfigJSON_URL, function (data) {
+                //petImgURL_beforeBathEnd = petImgURL
+                $("#pet-img").attr("src", petImgURL);
+            })
+        }
+    }
+
     //eat
     document.body.addEventListener('input', async event => {
         inputTarget = event.target
@@ -308,6 +348,9 @@ $(document).ready(function readyHandler() {
                 }, 500)
             } else if (e.which == 39  && $(".pet").offset().left < window.screen.availWidth - 148) {  //right arrow
                 animating = true;
+                if (BathBool == true){
+                    BathEnd()
+                }
                 petImgURL_afterWalk = standRight;
                 if (rightCount == true) {
                     petImgURL = walkRight1;
@@ -330,6 +373,9 @@ $(document).ready(function readyHandler() {
                     animating = false;
                 }, 250)
             } else if (e.which == 37 && $(".pet").offset().left > 20) {  //left arrow
+                if (BathBool == true){
+                    BathEnd()
+                }
                 animating = true;
                 petImgURL_afterWalk = standLeft;
                 if (leftCount == true) {

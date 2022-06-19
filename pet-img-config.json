@@ -29,7 +29,8 @@
             "right1": "images/AvaEatR1.png",
             "right2": "images/AvaEatR2.png",
             "right3": "images/AvaEatR3.png"
-        }
+        },
+        "bath": "images/AvaBath.png"
     },
     "Bella": {
         "name": "Bella",
@@ -61,7 +62,8 @@
             "right1": "images/BellaEatR1.png",
             "right2": "images/BellaEatR2.png",
             "right3": "images/BellaEatR3.png"
-        }
+        },
+        "bath": "images/BellaBath.png"
     },
     "Carol": {
         "name": "Carol",
@@ -93,7 +95,8 @@
             "right1": "images/CarolEatR1.png",
             "right2": "images/CarolEatR2.png",
             "right3": "images/CarolEatR3.png"
-        }
+        },
+        "bath": "images/CarolBath.png"
     },
     "Diana": {
         "name": "Diana",
@@ -125,7 +128,8 @@
             "right1": "images/DianaEatR1.png",
             "right2": "images/DianaEatR2.png",
             "right3": "images/DianaEatR3.png"
-        }
+        },
+        "bath": "images/DianaBath.png"
     },
     "Eileen": {
         "name": "Eileen",
@@ -157,6 +161,7 @@
             "right1": "images/EileenEatR1.png",
             "right2": "images/EileenEatR2.png",
             "right3": "images/EileenEatR3.png"
-        }
+        },
+        "bath": "images/EileenBath.png"
     }
 }
