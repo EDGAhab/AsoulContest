@@ -215,7 +215,7 @@ $(document).ready(function readyHandler() {
     function getCurrentTime() { //get current time  
         d = new Date().getHours();
         //console.log(d)
-        if(d==10){
+        if(d==21){
             BathBegin();
         } else {
             if(BathBool == true) {
